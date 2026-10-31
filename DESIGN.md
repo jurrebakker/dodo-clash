@@ -240,10 +240,14 @@ This is a special invader with an effect on the whole map:
   Vitest for tests, static hosting, saves in `localStorage`. Background in
   [TECH_RESEARCH.md](TECH_RESEARCH.md).
 
+- **Language:** **English only.** No translation system.
+- **History:** **inspired by history.** The real island, the real species and the real order in which
+  the invaders arrived (Dutch sailors in 1598, then pigs, rats, macaques…) form the backbone of the
+  campaign. The story itself is freely fictional: *what if the dodos had fought back?*
+  Short real facts can be unlocked as trivia.
+
 ### Still open
-1. **Language:** English, Dutch or both?
-2. **Historical accuracy:** how far do we follow real history (the dates of the ships, the
-   extinction) for the story and the campaign?
+- Nothing yet. New questions come up during development.
 
 ---
 
