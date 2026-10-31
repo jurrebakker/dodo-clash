@@ -99,13 +99,27 @@ are extinct now too. That makes them natural allies.
 | **Broad-billed parrot** (*Lophopsittacus*) | Flyer | *Alarm Call:* nearby flocks get +1 move |
 | **Mauritius blue pigeon** | Flyer | *Messenger:* moves Food or Spirit to another colony |
 | **Fruit bat** (flying fox) | Flyer, active at night | *Night Raid:* attacks from a distance without being harmed |
-| **Rodrigues solitaire** | Rare cousin, a hero unit | *Rally:* all flocks in the area gain courage (+strength) |
+| **Rodrigues solitaire** | Rare cousin, an elite unit | *Rally:* all flocks in the area gain courage (+strength) |
 
 - **No cards and no deck.** Allies become available by **winning over their settlement**
   (with *Courage*, see §5). Each one can be trained at its own settlement.
-- **Elders:** unique leader birds (one per clan or ally) appear when a
-  colony grows big enough. An Elder has one active ability that costs Spirit.
-  This replaces the reference's heroes and cards with something that grows out of the map itself.
+- **No playable hero characters** on the map.
+
+### 4.3 Match hero (chosen before the match)
+
+- Before a match the player picks **one hero**. The hero never appears on the map. Instead
+  it gives a **static modifier that lasts the whole match**.
+- **The first hero has no modifiers at all.** It's the neutral baseline.
+- Later heroes come with **trade-offs**: a bonus in one area, paid for with a penalty
+  somewhere else. Ideas for later (not final):
+
+| Hero (idea) | Bonus | Trade-off |
+|---|---|---|
+| *The Elder* (baseline) | none | none |
+| *The Forager* | +20% Fruit | Flocks train 1 turn slower |
+| *The Warden* | +25% colony defence | −1 move speed for all flocks |
+| *The Brood Mother* | Eggs hatch 50% faster | −10% flock strength |
+| *The Wanderer* | +1 move speed | −20% Fruit |
 
 ---
 
@@ -114,7 +128,7 @@ are extinct now too. That makes them natural allies.
 | Resource | Comes from | Used for |
 |---|---|---|
 | **Fruit** 🍈 | Colonies (per dodo per day) and fruit trees on the map | Training flocks |
-| **Spirit** 💧 | Freshwater springs | Elder and ally abilities |
+| **Spirit** 💧 | Freshwater springs | Ally abilities |
 | **Courage** 🪶 | Defeating invaders | Winning over settlements and springs |
 
 - Fruit is **seasonal**. In the dry season (one "season" is every 10 days) colonies
@@ -178,7 +192,7 @@ This is a special invader with an effect on the whole map:
 
 - Combat starts when a flock and invaders meet on a waypoint or at a location.
   The battle is resolved **at the end of the turn**, so reinforcements can still join that turn.
-- **Strength = number × individual strength** (plus terrain, Elder bonus and nest defence).
+- **Strength = number × individual strength** (plus terrain, hero modifier and nest defence).
 - **Outcome:** the stronger side wins. Losses follow a **saving throw** based on how the
   two sides' strengths compare.
   - We start from the square law (Lanchester's law, a general military rule of thumb):
@@ -207,19 +221,28 @@ This is a special invader with an effect on the whole map:
 1. One small map (south-east Mauritius), single player, turn-based.
 2. 2 dodo clans (Forest and Marsh), 1 ally (Giant tortoise).
 3. 3 invaders (Sailors, Pigs, Rats), 1 harbour, dens.
-4. Fruit and Courage. Spirit and abilities come later.
+4. Fruit and Courage. Spirit and abilities come later. Only the baseline hero (no modifiers).
 5. Combat with the square law, a battle report, and the win/lose screen with a score.
 
 ---
 
-## 11. Open questions
+## 11. Decisions & open questions
 
-1. **Technology:** plain HTML/Canvas or TypeScript, or a framework such as Phaser or PixiJS?
-2. **Multiplayer:** single player only at first, or co-op from the start?
-3. **Art style:** hand-drawn and cute, or atmospheric and realistic like the reference?
-4. **Elders:** do we keep a hero layer, or do we leave it out entirely?
-5. **Language:** English, Dutch or both?
-6. **Historical accuracy:** how far do we follow real history (the dates of the ships, the
+### Decided
+- **Multiplayer:** **single player first.** Turn-based and running entirely in the browser.
+  Keep the game logic separate from the display so co-op can be added later.
+- **Art style:** **cute and hand-drawn.** Chunky, charming dodos and animals.
+- **Heroes:** **no playable hero characters.** One match hero is chosen beforehand and gives a static
+  modifier. The first hero has none, and later heroes have trade-offs (§4.3).
+
+- **Technology:** **TypeScript + Vite + PixiJS (map) + HTML/CSS (UI)**, with the game
+  logic in its own layer (`core/`) apart from drawing (`render/`) and screens (`ui/`).
+  Vitest for tests, static hosting, saves in `localStorage`. Background in
+  [TECH_RESEARCH.md](TECH_RESEARCH.md).
+
+### Still open
+1. **Language:** English, Dutch or both?
+2. **Historical accuracy:** how far do we follow real history (the dates of the ships, the
    extinction) for the story and the campaign?
 
 ---
@@ -231,7 +254,7 @@ To make sure Dodo Clash is its own game rather than a copy:
 | Reference (Blight) | Dodo Clash |
 |---|---|
 | Fantasy races, zombies | Real native and introduced species, Mauritius 1600 |
-| Hero cards, deck, Tavern, Hero Coins | **No cards.** Allies and Elders come from the map |
+| Hero cards, deck, Tavern, Hero Coins | **No cards.** Allies come from the map. One match hero gives a static modifier |
 | Gold / Mana / Valour | Fruit (seasonal) / Spirit / Courage |
 | Bodies rise as zombies | Invaders **breed in dens**. Ships bring waves |
 | Mana Pool → zombie boss | Spring → **Plague** event |
