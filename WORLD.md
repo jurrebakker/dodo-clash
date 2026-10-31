@@ -298,6 +298,18 @@ Frames in [reference/video-intro/](reference/video-intro/):
   *Show Reward* button after claiming, and the train button turning into *"Training for 6h"*.
 - **Graveyard info:** clicking a blighted settlement lists its status (*Blighted*) and its
   graveyard (*158 Human Bodies*), shown with a skull icon.
+- **Battlefield Graveyard panel** (`reference/screenshots/battlefield-graveyard-panel.png`):
+  ```
+  Battlefield Graveyard                         [?] [x]
+  [art: moonlit battlefield, broken banners, spears, crows]
+    Here lie the bodies of those slain by the Undead.
+    Restless souls compelled to rise again.
+    Move your forces to this location and burn these bodies
+    so that they may rest in peace evermore.
+  Restless Souls
+    Human ............................................ 158
+  ```
+  Each race of body gets its own row.
 - **Mid-game look:** whole regions turn into dark blight splatter. Almost every zombie
   token has a skull (graveyard) under it. Burning towns show **big orange flames**, and the
   few owned settlements still show blue shields.

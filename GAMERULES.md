@@ -349,6 +349,12 @@ Boss stats and powers are not specified.
     Flyers set to Avoid are the exception.
   - Winning a battle over a graveyard burns its bodies when the battle ends.
 - The game can't end while any infected bodies remain unburned.
+- **Graveyard panel** (`reference/screenshots/battlefield-graveyard-panel.png`): clicking
+  a graveyard opens *Battlefield Graveyard*. It explains that the bodies of those slain by the
+  Undead are restless souls that will rise again, and asks you to move your forces there to burn them.
+  A **Restless Souls** table lists the bodies **per race**, for example `Human 158`.
+  *(inferred)* Because bodies are counted by race, they probably rise as zombies of that
+  same race (Human → Zombie Human).
 
 ### Reaper's Tally (scoring)
 - The game starts with a fixed **living population** across the map.
