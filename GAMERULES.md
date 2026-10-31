@@ -127,7 +127,14 @@ Racial flavour mentioned in the source:
 - Settlements come in three sizes: **Villages**, **Towns** and **Castles**.
 - Each settlement belongs to a race and has a **population** of villagers.
 - **Capturing:** move a unit into a neutral settlement and pay a **Valour** cost.
-  The map shows each settlement's cost. Exact values are not specified.
+  The help pages give no exact values. Observed in-game: a **200-person Human village costs
+  2 Valour** to claim (see §18.7). Until you claim it, the settlement panel already shows its
+  production and training options, but you can't use them.
+- **Claim reward:** the help pages don't mention this, but in-game the people of a newly
+  claimed settlement give you a **reward** for taking them under your protection.
+  Observed: *"A pouch of Gold! +150 Gold"* from a 200-person Human village. The reward
+  table is otherwise unknown. It could also hold Mana, Valour, cards or volunteer heroes
+  (compare *Volunteers* in §9).
 - A settlement you command provides:
   - **Gold income:** each villager produces a race-dependent amount every 24h
     (see [Races](#2-races)).
@@ -175,7 +182,9 @@ Each hero or unit card shows:
   equal to its remaining population.
 - Each race can train **only one unit type** (see [Races](#2-races)). Other unit types
   come only from deploying hero or special-unit cards.
-- The exact Gold cost and population size per unit are not specified.
+- The help pages don't give exact Gold costs or unit sizes. The in-game tutorial shows one
+  (see §18.7): a village trains **50 villagers** into **50 Human Swordsmen at 10 Strength
+  each** (Might 500) for **250 Gold** (5 Gold per soldier). Training takes **6 hours = 1 turn**.
 
 ### Deploying heroes and special units
 - They are played from your **hand** (see [Deck](#9-hero-collection-deck--hand)).
@@ -200,6 +209,36 @@ Each hero or unit card shows:
   A bigger unit also makes a **ranged attack** stronger.
 - Merged individuals receive the **Buffs of the target unit**. This includes Combat
   Experience, so merging can spread positive buffs and dilute or remove negative ones.
+- Only units of the **same type** can be merged, for example two Human Swordsmen units.
+  *(Observed in-game.)*
+
+### Splitting
+- A unit can also be **split** into smaller units of the same type. *(Observed in-game.
+  The help pages don't mention it.)* How the split amount is chosen, and whether buffs
+  are copied to both halves, isn't known yet.
+
+### Selection info
+- Selecting a unit or army shows its **total strength** (Might) and lists the **individual
+  units** it's made of. *(Observed in-game.)*
+- Example (`reference/screenshots/stack-selection-list.webp`): a stack token reading
+  **1650** at Warmwood lists:
+
+  | Unit | Strength | Per soldier |
+  |------|----------|-------------|
+  | 50 Human Swordsmen | 600 | 12 |
+  | 25 Elven Archers ⚡ | 350 | 14 |
+  | 25 Elven Archers ⚡ | 350 | 14 |
+  | 25 Elven Archers ⚡ | 350 | 14 |
+  | **Total** | **1650** | |
+
+  - The map token shows the **sum** of every unit in the stack.
+  - **Elven Archer units are 25 strong**, half the 50 of Human Swordsmen.
+    *(inferred)* Training size may depend on race or unit type.
+  - The **⚡ icon** marks units with an active ability. For archers that's their ranged attack.
+  - *(inferred)* Each soldier is +2 above its base (Swordsman 10 → 12, Archer 12 → 14).
+    That fits **two battle wins** at +1 Strength each from Combat Experience.
+  - These three archer units are the same type, so they could be merged into one unit of 75
+    (Might 1050). That makes a single, stronger ranged attack.
 
 ### Buffs
 - A Buff is an enchantment or special condition on a unit. It can be positive
@@ -413,7 +452,7 @@ audio toggle, and leaving a game so another player can take the slot.
 
 Items marked ✓ are partly answered by the screenshots in §18.
 
-- Valour cost to capture each settlement or Mana Pool
+- Valour cost to capture each settlement or Mana Pool (✓ observed: 2 Valour for a 200-person Human village)
 - Valour reward per zombie kill (✓ observed: about 1 per 7 kills), and for long time jumps in single player
 - Valour cost of short time jumps, flyer stance changes and gifting
 - Gold and population cost of each regular unit, and its size
@@ -424,6 +463,7 @@ Items marked ✓ are partly answered by the screenshots in §18.
 - Starting map population, settlement sizes per type (✓ typical sizes, see §18.5)
 - Deck size limits; Hero Coin sources
 - Boss stats and powers (✓ three bosses, see §18.4)
+- Claim reward table: what rewards exist and how they're chosen (✓ one seen: +150 Gold)
 
 ---
 
@@ -471,10 +511,12 @@ Taken from the in-game screenshots and text of the wargamer.fr preview
 - *(inferred)* Per-individual strengths you can read off these numbers:
   | Unit | Might ÷ souls | Note |
   |------|---------------|------|
-  | Dwarven Hammers (fresh) | 640 / 40 = **16** | |
+  | Human Swordsman (fresh, from tutorial) | 500 / 50 = **10** | stated on the training screen |
+| Undead Dwarves (tutorial, plains) | 720 / 40, 1440 / 80 = **18** | off home terrain, so this fits a base of 18 |
+| Dwarven Hammers (fresh) | 640 / 40 = **16** | |
   | Dwarven Hammers (veteran) | 1071 / 32 ≈ **33** | combat experience plus buffs |
   | Undead Dwarves | 297 / 11 = **27**; 1269 / 47 = **27** | in mountains, so 18 × 1.5 home bonus |
-  | Human Swordsman | 750 / 50 = **15** | |
+  | Human Swordsman (mid-game) | 750 / 50 = **15** | base 10, so +5 from experience or buffs |
   | Elven Archer | 300 / 25 = **12** | |
   | Knight | 500 / 20 = **25** | |
   | Immortal Elf | 1666 / 119 ≈ **14** | |
@@ -523,3 +565,74 @@ Card-rule patterns worth copying:
   hardest setting.
 - **Meta progression:** after each game you earn **Hero points** based on your score.
   You spend them in the Bazaar on new cards.
+
+### 18.7 The in-game tutorial (single player)
+
+From the tutorial screenshots in [reference/screenshots/](reference/screenshots/):
+
+1. **Objective** (`tutorial-1-objective`): destroy the undead outbreak **as fast as you can**.
+   You win when every zombie is destroyed. Your score is how many people are left alive.
+2. **The horde** (`tutorial-2-zombie-horde`): a horde of Undead Dwarves moves **from village to
+   village**, kills everyone and infects their bodies with the Blight. The blighted bodies
+   **slowly rise** as zombies.
+   - At the start, three dwarven fortresses (Shallow Mountain, Ironhelm Fortress, Rams Pass)
+     are already blighted. Zombie stacks of **720** and **1440** Might sit around them.
+3. **Starting position:** the player already owns **6 Human villages** (200 Humans each,
+   100 Gold/day each, so 600 Gold/day in total) and **1 Mana Pool** (Yellowsprings, 20 Mana/day).
+   One village (Wolfs Plain) already has an army of 500 Might. Starting resources are 1000 Gold, 20 Mana and 20 Valour.
+4. **Training** (`tutorial-3-train-units`): open a village and press *Train for 250 Gold* to train
+   50 of its 200 villagers as Human Swordsmen at 10 Strength each (Might 500).
+   - Training takes **6 hours (1 turn)**.
+   - The tutorial's advice: at the start, **build an army at each of your villages**.
+   - Village Gold is paid as a **lump sum once every 24h**. The panel shows a countdown,
+     e.g. *"100 Gold in 7h 9m 44s"*.
+   - A village can be given up with **Relinquish Command**.
+5. **Moving** (`tutorial-4-move-army`): select the army and press *Move*. The tutorial's advice:
+   **intercept the zombies** before they reach your undefended villages.
+   Use *gather* (▲) to pull all nearby units into one army, and *disband* (▼) to split it again.
+   - **Worked example** (user-provided screenshot, not saved): 50 Human Swordsmen
+     (500 Strength) at Wolfs Plain are ordered **1 League north-west across open plains**
+     to an empty waypoint. The path label reads **6h**. That matches the rule:
+     4h per League by road × 1.5 for plains = 6h, so the move takes exactly one turn.
+6. **Combat** (`tutorial-5-combat`):
+   - The army with the **smaller strength is completely destroyed**.
+   - There is **no luck in deciding the winner**. Luck only decides losses: each soldier in the
+     winning army **rolls a saving throw**.
+   - The illustration shows an Orc army of 1200 beating zombies of 560 and ending at 696.
+     The formula predicts about 22% losses (an expected ~936 left), so the art is
+     probably just an illustration, not an exact result.
+6b. **Battle in progress** (`tutorial-7-combat-markers`): the stacks in a fight merge into
+   one **crossed-swords token** showing the **combined Might of both sides**, for example
+   1940 = 1440 zombies + 500 Swordsmen. It stays until the battle resolves 1 hour after contact.
+   Battles happen on open-country waypoints too. The same screenshot confirms that training
+   lowers income: Rangersplain went from 100 to 75 Gold/day after training 50 of its 200 villagers.
+6c. **Claiming a settlement** (`tutorial-8-claim-settlement`), at Age 18h:
+   - The panel prompts you to move a unit into the settlement and take command, then train its
+     villagers and collect its Gold.
+   - Your unit must be **standing in the settlement**. Here a 50 Human Swordsmen (500)
+     army is listed under *Heroes & Armies*.
+   - **Claim for 2 Valour** (a 200 Human village).
+   - **Before you claim it,** the panel already shows population (200), production (0.5 Gold per villager
+     every 24h) and a running **Production ETA** countdown ("100 Gold in 13h 59m 13s"). The
+     clock keeps running for neutral settlements too.
+   - The training offer is shown but locked: claim the settlement first, then train
+     50 Swordsmen for 250 Gold.
+   - Resources at 18h: 125 Gold, 40 Mana, 24 Valour. Mana has gone up from 20 to 40 (one Mana Pool payout),
+     and Valour from 20 to 24 *(inferred: from zombie kills)*.
+   - **After claiming** (user-provided screenshot, not saved): a *Reward* panel opens: *"The people
+     of Druid Farm offer you this reward for taking their settlement under your
+     protection."* The reward is **A pouch of Gold! +150 Gold**. A *Show Settlement* button
+     returns you to the settlement panel.
+   - Net effect: Valour **24 → 22** (−2 to claim) and Gold **125 → 275** (+150 reward).
+     Claiming for 2 Valour paid back more than half the cost of training an army.
+7. **Turns** (`tutorial-6-jump-6-hours`): **single player is turn-based**. When your turn is done,
+   press *Jump 6 Hours* to move the clock forward. **1 turn = 6 hours.**
+
+Example opening based on the tutorial, as a design reference:
+- Turn 1: train 50 Swordsmen in all 6 villages, which costs 6 × 250 = 1500 Gold. You can only afford 4 with
+  1000 Gold, so train in the 4 villages closest to the zombies first.
+- Each trained village drops to 150 villagers, so its income falls from 100 to 75 Gold/day.
+- Turn 2 (6h later): the armies are ready. Gather them and march to meet the 720 stacks
+  one at a time. 4 × 500 = 2000 Might against 720 gives each soldier a
+  (720 / 2000)² ≈ 13% chance to die. Against the 1440 stack it would be
+  (1440 / 2000)² ≈ 52%, so wait for reinforcements first.

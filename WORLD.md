@@ -2,7 +2,8 @@
 
 Descriptions based on the 16 screenshots in the wargamer.fr preview
 (<https://www.wargamer.fr/apercu-de-blight-of-the-immortals/>, April 2016) and the
-article text. Rules and numbers are in [GAMERULES.md](GAMERULES.md). This file covers what
+article text, plus in-game tutorial screenshots (saved in
+[reference/screenshots/](reference/screenshots/)). Rules and numbers are in [GAMERULES.md](GAMERULES.md). This file covers what
 the world **looks like** and how its parts fit together.
 
 ---
@@ -21,11 +22,16 @@ the world **looks like** and how its parts fit together.
   | Desert    | Sandy tan ground with red-brown rock outcrops |
   | Swamp     | Darker, saturated green with ponds and reeds |
   | Water     | Blue rivers winding between hexes, plus large lakes or inland seas |
-- **Settlements, Mana Pools and monster lairs are the nodes.** Each sits on a hex.
-  **Roads**, drawn as thin beige lines, connect neighbouring nodes. Units travel along this
-  network from node to node, and one node-to-node hop is one **League**.
-  Roads cross terrain, so a path's speed depends on the hexes it passes through
-  (road 1x, plains/forest/desert 1.5x, mountain/swamp 2x).
+- **A triangular waypoint grid covers the whole map.** Faint dashed white lines criss-cross
+  the terrain in a **triangular lattice**. Every intersection is a **waypoint**, and one edge between
+  two neighbouring waypoints is **1 League**. Units move only along these edges, from
+  waypoint to waypoint, and can stop on an **empty waypoint** in open country, not only at settlements.
+- **Settlements, Mana Pools and monster lairs sit on waypoints.**
+  Some edges are **roads**, drawn as solid beige lines, usually linking settlements.
+  Travel time per League depends on the edge: road 1x,
+  plains/forest/desert 1.5x, mountain/swamp 2x.
+  - Example: a Human Swordsman army (4h/League by road) moving 1 League across plains
+    shows **6h**.
 - **Rivers and seas are barriers.** Only flyers and swimmers can cross them, except where a road
   crosses the river.
 - **Map size varies by scenario:**
@@ -63,7 +69,8 @@ Each settlement is drawn as a **round plate** of buildings with a label undernea
 - **Settlement states:**
   1. **Neutral:** clean plate, no shield.
   2. **Owned:** blue shield. Gold flows in, and it can train units and deploy heroes.
-  3. **Under attack:** a crossed-swords combat marker sits on it until the battle resolves.
+  3. **Under attack:** a crossed-swords combat marker sits on it until the battle resolves
+     (see [Combat markers](#4b-combat-markers)).
   4. **Blighted:** the ground around it turns into **dark brown-black splatter**,
      a **skull and crossbones** appears under it (the graveyard of infected bodies), and
      the buildings may be shown **on fire**. A blighted settlement is no longer a zombie
@@ -96,8 +103,33 @@ Each settlement is drawn as a **round plate** of buildings with a label undernea
   - A small number in a circle on the left shows how many followers are grouped under it.
 - **A zombie group with a skull marker** under it is sitting on a graveyard it is creating.
 - **Stacks:** several tokens can sit on one node. The game lists them in the unit panel.
-- **Movement orders** show as a **yellow line** from the unit to its destination,
-  with a small **ETA tag** (for example "6h") at the end.
+- **A selected unit** gets a white outline around its token. A **selection bar** at the top
+  shows the owner shield, portrait, name and total strength, for example
+  `[shield][portrait] 50 Human Swordsmen ... 500 Strength`.
+- **Movement orders** show as a **pale yellow line** along the waypoint edges to the
+  destination. The destination waypoint is marked with a **black dot**, and a blue
+  **ETA pill** next to the path gives the travel time (for example "6h").
+
+## 4b. Combat markers
+
+From `reference/screenshots/tutorial-7-combat-markers.png`:
+
+- When enemy stacks meet, their separate tokens are **replaced by one combat token** on that
+  waypoint. It has a **grey frame with a crossed-swords icon** instead of a portrait.
+- Battles happen wherever the stacks meet, **often on empty waypoints in open country**,
+  not only at settlements.
+- A blue owner shield on top shows that one of your armies is in the fight.
+- **The number under the swords is the combined Might of everything in the battle**:
+  - **1940** = a 1440 Undead Dwarf horde + a 500 Swordsman army.
+  - *(inferred)* **1022** is probably 500 Swordsmen + about 522 of a weakened zombie stack.
+- The token stays until the battle resolves, **1 hour after contact**. More units moving
+  onto that waypoint during that hour join the battle.
+- Also visible in the same screenshot:
+  - **Rangersplain's income has dropped from 100 to 75.** It trained 50 Swordsmen, leaving
+    150 villagers × 0.5 Gold.
+  - **A freshly deployed hero** (portrait token, Might **100**) stands on Rangersplain. That's a
+    single 1 × 100 hero, the same as the Wizard card.
+  - **Untouched armies of 500** wait on nearby waypoints as reserves.
 
 ## 5. The outbreak and how the blight spreads
 
@@ -158,6 +190,91 @@ before an unstoppable horde reaches it.
     **star rating** (47% gave 2.5 of 5 stars).
 - **Before a game starts,** a red banner warns you if no deck has been chosen, and a social
   share box offers open player slots.
+- **The top-left corner** shows the player's round avatar badge. A small **"S" coin** next to
+  the Valour counter opens the Shadow Bazaar.
+- **Settlement panel** (click an owned village):
+  ```
+  Human Village                                  [?] [x]
+  [village art]          100 Gold in: 7h 9m 44s
+                         [ Relinquish Command ]
+  Population        200 Human Villagers
+  Production        0.5 Gold / Villager Every 24 hours
+  Production ETA    100 Gold in 7h 9m 44s
+  ---------------------------------------------------
+  [unit portrait 500]  Train 50 of the 200 Human Villagers to become
+                       Human Swordsmen @ 10 Strength each.
+                       [ Train for (G) 250 Gold ]
+  ```
+- **Settlement panel, neutral** (a unit of yours is standing in it):
+  ```
+  Human Village                                  [?] [x]
+  [village art]   Move a unit into this settlement and take
+                  command! Train its villagers and collect its Gold.
+                         [ Claim for (V) 2 Valour ]
+  Population        200 Human Villagers
+  Production        0.5 Gold / Villager Every 24 hours
+  Production ETA    100 Gold in 13h 59m 13s
+  ---------------------------------------------------
+  [unit 500]  Claim this settlement so you can train 50 Human
+              Villagers to become Human Swordsmen @ 10 Strength each.
+              [ Train for (G) 250 Gold ]   (locked until claimed)
+  v Heroes & Armies
+  [shield][portrait] 50 Human Swordsmen          500 Strength
+  ```
+  Neutral and owned panels look the same. The neutral one swaps *Relinquish Command* for
+  *Claim for X Valour* and adds a **Heroes & Armies** list of the units present.
+- **Claim reward panel** (opens right after claiming):
+  ```
+  Human Village                                       [x]
+  [village art]   The people of Druid Farm offer you this
+                  reward for taking their settlement under
+                  your protection.
+  Reward
+  [art: leather pouch of coins]   A pouch of Gold!
+                                  (G) +150 Gold
+                                  [ Show Settlement ]
+  ```
+- **Army panel** (click a unit):
+  ```
+  50 Human Swordsmen                             [?] [x]
+  [unit card, cost 250]   Not Moving
+                          [ Move ]
+  Followers: use ▲ to gather all nearby units into one army, ▼ to disband it
+  > Other Heroes & Armies:  None
+  ```
+- **Stack list popup** (`reference/screenshots/stack-selection-list.webp`): clicking a
+  stack token opens a dark list at the top of the screen with one row per unit:
+  `[owner shield][portrait] 25 Elven Archers   ⚡   350 Strength`.
+  The selected row is outlined. A ⚡ marks units with an ability. The map token shows
+  the sum of all rows (1650).
+- Other things in the same screenshot:
+  - **A blighted settlement** (Forgotten Valley) has a dark splatter ring, no gold badge and no
+    population label. A zombie token (288) stands next to it.
+  - **A skull marker** under a waypoint or token marks a **graveyard** there, with bodies still to burn.
+  - **A battle in progress**: a crossed-swords token (560) stands next to a player army with a
+    small **"2" badge**, meaning 2 units are grouped in that army.
+  - **Mixed tokens on one settlement**: Swans Forest (50 Elves) shows a zombie token (16)
+    and a player token (300) side by side. That's the contact hour before a battle token
+    replaces them *(inferred)*.
+- Selecting a unit shows its **total strength** and a list of the **individual units** in it.
+  From that view, units of the **same type** can be **merged** into one, and a unit can
+  be **split** into smaller ones. *(Described by the user; no screenshot yet.)*
+- **Tutorial pop-ups** are black boxes with a pointer arrow aimed at the UI element they
+  explain, plus **Back** and **Next** buttons. They walk you through the objective, the zombie horde,
+  training, moving, combat and the 6-hour jump. Screenshots are in
+  [reference/screenshots/](reference/screenshots/).
+
+## 6b. Typical single-player opening (tutorial map)
+
+- The player starts in the south: **6 Human villages** (200 Humans, 100 Gold/day each) in a
+  plains region by the sea, plus **1 Mana Pool** (Yellowsprings) on the coast. All are already owned.
+  One village already has a 500-Strength Swordsman army.
+- To the north is a **mountain and forest** region with three **dwarven fortresses** (Shallow
+  Mountain, Ironhelm Fortress, Rams Pass). All three are **already blighted**: dark splatter on the
+  ground and no population label. **Undead Dwarf** stacks of 720 and 1440 Might are spreading
+  out from there.
+- The player's first decisions: train armies everywhere, gather them, and march north to
+  intercept the zombies before they reach the villages.
 
 ## 7. Cards
 
