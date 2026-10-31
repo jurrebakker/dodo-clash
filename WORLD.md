@@ -3,7 +3,8 @@
 Descriptions based on the 16 screenshots in the wargamer.fr preview
 (<https://www.wargamer.fr/apercu-de-blight-of-the-immortals/>, April 2016) and the
 article text, plus in-game tutorial screenshots (saved in
-[reference/screenshots/](reference/screenshots/)). Rules and numbers are in [GAMERULES.md](GAMERULES.md). This file covers what
+[reference/screenshots/](reference/screenshots/)) and frames from the developer's
+4-minute intro video (saved in [reference/video-intro/](reference/video-intro/)). Rules and numbers are in [GAMERULES.md](GAMERULES.md). This file covers what
 the world **looks like** and how its parts fit together.
 
 ---
@@ -275,6 +276,31 @@ before an unstoppable horde reaches it.
   out from there.
 - The player's first decisions: train armies everywhere, gather them, and march north to
   intercept the zombies before they reach the villages.
+
+## 6c. More UI from the intro video
+
+Frames in [reference/video-intro/](reference/video-intro/):
+
+- **Hero power toolbar:** a vertical strip of square **power buttons** sits on the right edge of
+  the map, one per available power (icons such as a staff, a sun or a flame). Click one, then pick an
+  area or a target.
+- **Target selection:** the top panel reads *"Select a target for Shall Not Pass"* and lists the
+  valid targets (`5 Immortal Elves ... 70 Strength`) with a Cancel button. The target on the map
+  gets a **red-and-white bullseye**.
+- **Path builder:** the top panel reads *"Build a list of locations for your hero to move to"*
+  with **Clear Path / Save / Cancel**. You click waypoints to add them to the path.
+- **Time-jump control:** `< Jump 6 Hours >`. The arrows step the jump down to 2h or 1h, and the
+  Valour cost shows underneath (0, −4 or −5).
+- **Deck builder** ("Assemble Your Heroes!"): two columns. *Your Deck* on the left has the card count, the
+  Deck Essentials row and up to 12 extra slots. *Your Collection* on the right has a grid of portraits
+  with ×counts and a race dropdown. *Start Game* is at the bottom right.
+- **Settlement panel extras:** a *Fortifications +2 Strength* row for big settlements, a
+  *Show Reward* button after claiming, and the train button turning into *"Training for 6h"*.
+- **Graveyard info:** clicking a blighted settlement lists its status (*Blighted*) and its
+  graveyard (*158 Human Bodies*), shown with a skull icon.
+- **Mid-game look:** whole regions turn into dark blight splatter. Almost every zombie
+  token has a skull (graveyard) under it. Burning towns show **big orange flames**, and the
+  few owned settlements still show blue shields.
 
 ## 7. Cards
 

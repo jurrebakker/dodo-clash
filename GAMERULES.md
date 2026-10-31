@@ -51,7 +51,8 @@ Racial flavour mentioned in the source:
 - The player controls the clock and advances it several hours at a time.
 - The **standard jump is 6 hours**.
 - Jumping **further than 6 hours** earns **Valour**. The amount is not specified.
-- Paying **Valour** allows **smaller jumps** for finer control. The cost is not specified.
+- Paying **Valour** allows **smaller jumps** for finer control. Observed costs
+  (§18.8): **6h = free, 2h = 4 Valour, 1h = 5 Valour**. *(inferred)* cost = 6 − hours.
 
 ### Multiplayer (slow real-time)
 - The clock always runs. A game lasts several days or weeks.
@@ -128,7 +129,7 @@ Racial flavour mentioned in the source:
 - Each settlement belongs to a race and has a **population** of villagers.
 - **Capturing:** move a unit into a neutral settlement and pay a **Valour** cost.
   The help pages give no exact values. Observed in-game: a **200-person Human village costs
-  2 Valour** to claim (see §18.7). Until you claim it, the settlement panel already shows its
+  2 Valour** and a **150-person Elven Great Hall costs 3 Valour** (see §18.7–18.8). Until you claim it, the settlement panel already shows its
   production and training options, but you can't use them.
 - **Claim reward:** the help pages don't mention this, but in-game the people of a newly
   claimed settlement give you a **reward** for taking them under your protection.
@@ -145,7 +146,8 @@ Racial flavour mentioned in the source:
   income and its population.
 - **Fortifications:** some settlements give a defensive bonus to the troops inside.
   Larger cities and castles start with one. Some heroes and special units can raise a
-  settlement's fortifications. The values are not specified.
+  settlement's fortifications. Observed value: **Elven Great Hall: Fortifications +2 Strength**,
+  i.e. +2 Strength for each defending soldier. Ordinary villages show no fortifications line.
 - **Gifting:** a settlement can be given to another player through the Trade section.
   Gifting costs **Valour**. The amount is not specified.
 
@@ -236,7 +238,9 @@ Each hero or unit card shows:
     *(inferred)* Training size may depend on race or unit type.
   - The **⚡ icon** marks units with an active ability. For archers that's their ranged attack.
   - *(inferred)* Each soldier is +2 above its base (Swordsman 10 → 12, Archer 12 → 14).
-    That fits **two battle wins** at +1 Strength each from Combat Experience.
+    That could be **two battle wins** at +1 each, or a **settlement's +2 Fortifications**.
+    In the intro video, archers standing in a hall with +2 Fortifications also show 350
+    (§18.8). Fortification is the more likely explanation.
   - These three archer units are the same type, so they could be merged into one unit of 75
     (Might 1050). That makes a single, stronger ranged attack.
 
@@ -267,6 +271,14 @@ Each hero or unit card shows:
   - Include cards of your **own race**.
   - Include races found **near you** on the map, since you're likely to capture their settlements.
   - Leave out races that don't appear on the map, or appear only far away.
+
+### Deck builder ("Assemble Your Heroes!")
+- Seen in the intro video (§18.8). The left side shows **Your Deck** with a card count, and the right side
+  shows **Your Collection**, filtered by race (dropdown) and with a count per card (×1, ×2…).
+- The deck starts with **Deck Essentials**, a fixed set of 5 kinds (7 cards).
+- On top of that you can **select up to 12 kinds of card** from your collection. Adding a
+  card lowers its count in the collection (×1 → ×0).
+- Buttons: *Add To Deck*, *Remove from Deck*, *Start Game*.
 
 ### Hand
 - The game starts with a **5-card hand** drawn from your deck.
@@ -453,7 +465,7 @@ audio toggle, and leaving a game so another player can take the slot.
 Items marked ✓ are partly answered by the screenshots in §18.
 
 - Valour cost to capture each settlement or Mana Pool (✓ observed: 2 Valour for a 200-person Human village)
-- Valour reward per zombie kill (✓ observed: about 1 per 7 kills), and for long time jumps in single player
+- Valour reward per zombie kill (✓ observed: about 1 per 6–7 kills), and for long time jumps in single player
 - Valour cost of short time jumps, flyer stance changes and gifting
 - Gold and population cost of each regular unit, and its size
 - Strength and speed of every unit, hero and zombie race (✓ partial, see §18.3)
@@ -500,7 +512,8 @@ Taken from the in-game screenshots and text of the wargamer.fr preview
 - Lesson: winning by a small margin is nearly as costly as losing, but it still stops
   the zombie stack. The article notes this is still better than losing to the zombies.
 - **11 Valour** for **81 kills**.
-- *(inferred)* Valour reward ≈ **⌊kills / 7⌋**, since 119 → 17 and 81 → 11.
+- *(inferred)* Valour reward is roughly **1 per 6–7 zombies killed**. Observed: 119 kills → 17,
+  81 kills → 11, 24 kills → 4 (§18.8). No simple formula fits all three exactly.
 
 ### 18.3 Battle preview, example C: overwhelming force
 
@@ -636,3 +649,57 @@ Example opening based on the tutorial, as a design reference:
   one at a time. 4 × 500 = 2000 Might against 720 gives each soldier a
   (720 / 2000)² ≈ 13% chance to die. Against the 1440 stack it would be
   (1440 / 2000)² ≈ 52%, so wait for reinforcements first.
+
+### 18.8 Official 4-minute introduction video
+
+Source: *"Blight of the Immortals – 4 Minute Introduction"* by the developer, Jay Kyburz
+(<https://www.youtube.com/watch?v=Q4_sKhbQSzU>). This combines the narration (auto-captions)
+with frames saved in [reference/video-intro/](reference/video-intro/). The file names start
+with the timestamp in seconds.
+
+**What the narration says (paraphrased):**
+- Co-op multiplayer against a zombie outbreak. Multiplayer is **slow real-time**: the game ticks on in
+  the background and you check in during the day to use powers and give orders.
+  Single player is turn-based, and **you choose how far to jump**. The developer says
+  multiplayer is the best way to play.
+- A move that says *4 hours* in multiplayer takes **4 real hours**.
+- Kinds of hero powers mentioned: **pin** hordes in place, **send them running**, **draw
+  zombies to you**, **raise armies faster**, **dig for Gold**, **build fortifications**.
+- Gold deploys heroes from your hand. Heroes go into settlements of **their own race**. Mana pays
+  for powers.
+- Using a power: click the hero, click the power button, then **confirm the area** or **click a
+  specific target** on the map.
+- Moving: select the unit, click *Move* and **build a list of nodes**. On PC you can
+  right-click instead.
+- Claiming: with a unit in a settlement, spend Valour. **In multiplayer the only way to earn
+  Valour is fighting zombies.** You get Valour for every zombie destroyed.
+- Combat happens automatically when enemies meet **on a hex or on the path between two
+  hexes**. The bigger army always wins with no randomness, and the loser is wiped out. A detailed
+  combat log goes to your inbox after every battle.
+- Burn bodies in a battlefield graveyard by **moving any unit past it**.
+- A claimed **Mana well** gives Mana throughout the day. If zombies capture one, a boss spawns.
+
+**Hard numbers from the frames:**
+
+| Frame | Observation |
+|-------|-------------|
+| 0040, 0168 | Time-jump costs: **Jump 2 Hours = −4 Valour**, **Jump 1 Hour = −5 Valour**, Jump 6 Hours = 0 |
+| 0072 | Deck builder: Deck Essentials 7 cards; "select up to 12 kinds of card"; deck grew 7 → 10 |
+| 0106 | Hero stack at Blue Plain (570): **Wizard 100**, **Cowardly Noble 20**, **20 Knights 400** (20 each), **Gnostic Mage 50**. Rows with an ability show ⚡ |
+| 0112 | *Shall Not Pass* targeting: "5 Immortal Elves, 70 Strength" (14 each). The target gets a red bullseye on the map |
+| 0128 | Move mode: "Build a list of locations for your hero to move to" with **Clear Path / Save / Cancel** |
+| 0145 | **Elven Great Hall** (neutral): 150 Elf Villagers, 1 Gold/villager/24h, **Fortifications +2 Strength**, **Claim for 3 Valour**. Train **25 Elf villagers → Elven Archers @ 12 Strength for 225 Gold** (9 Gold per archer) |
+| 0158 | After claiming: population **149** (a deployed **Elven Princess**, 188 Strength, took 1 villager). The train button reads **"Training for 6h"** while busy. *Show Reward* replays the claim reward |
+| 0190 | Combat log at Yellow Vail: Zombie Human 432 (24 souls, 18 each) against Human Swordsman 500 (50) + **Storm Friar** 50 (1). *432² is only 62% of 550²*: undead destroyed, each living soldier had a 62% chance of dying. Result 51 → 20 survivors. **24 kills → 4 Valour** |
+| 0200 | Clicking a blighted settlement lists *"Brown Valley — Blighted"* and **"158 Human Bodies"** in its graveyard |
+| 0212 | A 300-strength army ordered from Yellow Vail to Brown Valley (**6h**) to burn the bodies |
+| 0222 | Red Mud Mana well (owned, 20/day) surrounded by zombie-held villages. Tall Valley is **on fire** under a 1419 horde |
+
+**What this adds or changes:**
+- **Unit size and cost differ by race:** Humans train 50 Swordsmen (10 Str) for 250 Gold. Elves train
+  25 Archers (12 Str) for 225 Gold.
+- **Deploying a hero costs 1 villager** of population (Elven Princess: 150 → 149).
+- **A whole settlement becomes bodies:** Brown Valley's ~158 villagers became 158 Human Bodies.
+- **A battle can kill most of the winner:** at 62%, the Swordsmen lost 30 of 50 and the Storm Friar died.
+- **More hero names to use as inspiration:** Wizard, Cowardly Noble, Knights, Gnostic Mage, Elven Princess, Storm
+  Friar.
