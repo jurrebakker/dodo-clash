@@ -1,0 +1,525 @@
+# Game Rules Reference: Blight of the Immortals
+
+Rules and mechanics taken from the official help codex at
+<https://blight.ironhelmet.com/help/index> and the help pages it links to.
+Use this as a design reference. Where the source gives no value, the rule
+says **Not specified**, and that number is ours to design.
+
+---
+
+## 1. Overview
+
+- Each game starts with a zombie outbreak in a distant village or city. The zombies
+  multiply and spread across the map.
+- The game is **cooperative**. All players win together once the Blight is defeated.
+- Players deploy **heroes**, expand their **empire** by taking settlements, and
+  **train armies** to fight the zombies.
+- **End condition:** the game ends only when both of these are true:
+  1. Every zombie (walking dead) has been killed.
+  2. Every infected body (restless soul) in the graveyards has been burned.
+- **Score:** see [Reaper's Tally](#12-reapers-tally-scoring).
+
+### Terminology
+- Zombies are also called **Immortals**, **Undead** or **Blighted**.
+- An ability that targets Immortals hits every zombie type unless it says otherwise.
+- An ability that targets Mortals hits any living creature unless it says otherwise.
+
+---
+
+## 2. Races
+
+There are six races. Each has a living version, which players control, and a zombie version.
+
+| Race    | Gold per villager / 24h | Trainable unit   | Zombie version  | Zombie home terrain |
+|---------|-------------------------|------------------|-----------------|---------------------|
+| Humans  | 0.5                     | Human Swordsman  | Zombie Humans   | Plains              |
+| Elves   | 1                       | Elven Archers    | Immortal Elves  | Forests             |
+| Dwarves | 2                       | Dwarven Hammers  | Undead Dwarves  | Mountains           |
+| Orcs    | 0.5                     | Orcish Swords    | Zombie Orcs     | Deserts             |
+| Goblins | 2                       | Goblin Bows      | Undead Goblins  | Forests & Swamps    |
+| Trolls  | 1                       | Trollish Spears  | Immortal Trolls | Swamps              |
+
+Racial flavour mentioned in the source:
+- Goblin and Dwarf heroes often produce extra **Gold**.
+- Elf heroes often produce extra **Mana**.
+
+---
+
+## 3. Time
+
+### Single player (turn-based)
+- The player controls the clock and advances it several hours at a time.
+- The **standard jump is 6 hours**.
+- Jumping **further than 6 hours** earns **Valour**. The amount is not specified.
+- Paying **Valour** allows **smaller jumps** for finer control. The cost is not specified.
+
+### Multiplayer (slow real-time)
+- The clock always runs. A game lasts several days or weeks.
+- Players log in whenever they like to check armies, read battle results and give orders.
+  Players don't need to be online at the same time.
+
+### Admin options (password-protected games, a Premium feature)
+- **Jump ahead:** force game time forward. The amount is not specified.
+- **Pause:** stops the production clock and unit movement.
+- **Delete:** the creator can delete the game at any time.
+
+### Standard durations
+| Thing                                | Duration           |
+|--------------------------------------|--------------------|
+| Standard single-player time jump     | 6 hours            |
+| Unit training time                   | 6 hours            |
+| Hero deployment                      | Instant            |
+| Cooldown between hero deployments at the same settlement | 6 hours |
+| Delay from first contact to battle resolution | 1 hour    |
+| Gold production cycle                | Per 24 hours (a "day") |
+
+---
+
+## 4. Resources
+
+| Resource       | Starting amount  | Used for                                   | Sources |
+|----------------|------------------|--------------------------------------------|---------|
+| **Gold**       | 1,000            | Training units, deploying heroes           | Settlements (villagers), some heroes |
+| **Mana**       | 20               | Casting hero special abilities             | Mana Pools (20 Mana per day each), some heroes |
+| **Valour**     | 20               | Capturing settlements and Mana Pools, Shadow Bazaar, time control, flyer stance changes, gifting settlements | Killing zombies; in single player, jumping more than 6h |
+| **Hero Coins** | Not specified    | Accepting Volunteer heroes, the Tavern     | Not specified |
+
+- Gold, Mana and Valour can all be **sent to other players** (see [Diplomacy](#13-diplomacy--trade)).
+
+---
+
+## 5. Map & Movement
+
+### Distance
+- Distance is measured in **Leagues**. One League is the distance between two
+  neighbouring **waypoints**, which are the points where dotted paths intersect.
+
+### Speed and terrain
+- A unit's base speed is the time it takes to cover **1 League on a road**.
+- Terrain multiplies the time per League:
+
+| Terrain                    | Time multiplier |
+|----------------------------|-----------------|
+| Road                       | 1x              |
+| Plains, Forests, Deserts   | 1.5x            |
+| Mountains, Swamps          | 2x              |
+
+### Movement types
+- **Flying units**
+  - Ignore terrain penalties and can cross rivers, lakes and seas.
+  - Have a stance:
+    - **Avoid Zombies:** the unit won't engage zombies and won't burn bodies.
+    - **Engage Zombies:** the unit engages zombies.
+  - Switching stance costs **Valour**. The amount is not specified.
+- **Swimming units**
+  - Can cross rivers, lakes and seas.
+  - Can't leave **Swamps**. They can't enter Plains, Forests, Deserts or Mountains.
+
+### Giving orders
+- Mouse: select a unit, then **right-click** a waypoint to move there.
+  **Alt + right-click** adds more waypoints to the path. Right-clicking the unit's own position clears its orders.
+- Touch: open the unit's details, press **Move**, tap waypoints, then press **Save** or double-tap the last waypoint.
+
+---
+
+## 6. Settlements
+
+- Settlements come in three sizes: **Villages**, **Towns** and **Castles**.
+- Each settlement belongs to a race and has a **population** of villagers.
+- **Capturing:** move a unit into a neutral settlement and pay a **Valour** cost.
+  The map shows each settlement's cost. Exact values are not specified.
+- A settlement you command provides:
+  - **Gold income:** each villager produces a race-dependent amount every 24h
+    (see [Races](#2-races)).
+  - A place to **deploy heroes** of the same race.
+  - A place to **train units**.
+- Recruiting villagers, whether by training units or deploying heroes, **lowers the population**.
+  Recruited villagers no longer produce Gold. The map shows each settlement's daily Gold
+  income and its population.
+- **Fortifications:** some settlements give a defensive bonus to the troops inside.
+  Larger cities and castles start with one. Some heroes and special units can raise a
+  settlement's fortifications. The values are not specified.
+- **Gifting:** a settlement can be given to another player through the Trade section.
+  Gifting costs **Valour**. The amount is not specified.
+
+---
+
+## 7. Mana Pools
+
+- Special map locations that produce **Mana**.
+- **Claiming:** move onto the pool and pay a **Valour** cost. The amount is not specified.
+- A claimed pool gives its owner **20 Mana per day**, paid out over the course of the day.
+- If a zombie reaches **any** Mana Pool, claimed or not, it **blights** the pool and
+  a **Zombie Boss** is created (see [Bosses](#11-zombie-bosses)).
+
+---
+
+## 8. Units, Heroes & Armies
+
+### Unit card stats
+Each hero or unit card shows:
+- Name
+- Gold cost to deploy
+- **Strength**
+- Special abilities
+- Movement speed
+- Mana cost to cast its ability
+- Recharge time of its ability
+
+### Training regular units
+- Units can be trained in any settlement you control.
+- Training costs **Gold** and uses up **population**.
+- Training takes **6 hours**. Population is removed only when training finishes.
+- A settlement with no population can't train.
+- If a settlement doesn't have enough population for a full unit, it trains a smaller unit
+  equal to its remaining population.
+- Each race can train **only one unit type** (see [Races](#2-races)). Other unit types
+  come only from deploying hero or special-unit cards.
+- The exact Gold cost and population size per unit are not specified.
+
+### Deploying heroes and special units
+- They are played from your **hand** (see [Deck](#9-hero-collection-deck--hand)).
+- The target settlement must:
+  - be under your command,
+  - be the **same race** as the card,
+  - have enough **population**.
+- You pay the card's **Gold cost**, and the settlement loses population.
+- Deployment is **instant**.
+- After deploying a hero at a settlement, you must wait **6 hours** before deploying
+  another hero there.
+
+### Grouping (armies)
+- Heroes and units can be grouped into an **army** by ordering them to **follow** a leader.
+  The army moves as one.
+- Units that follow certain heroes gain a **Buff**.
+- Units can be grouped or ungrouped one at a time or all together.
+
+### Merging
+- **Regular units** can be merged into a single unit. **Heroes can't be merged.**
+- Merging adds individuals to the target unit, which makes it bigger.
+  A bigger unit also makes a **ranged attack** stronger.
+- Merged individuals receive the **Buffs of the target unit**. This includes Combat
+  Experience, so merging can spread positive buffs and dilute or remove negative ones.
+
+### Buffs
+- A Buff is an enchantment or special condition on a unit. It can be positive
+  (such as +Strength) or negative (such as being unable to move).
+- Each Buff shows its effect, its remaining duration (unless permanent) and its caster.
+- Every Buff comes from a special ability, except for:
+  - **Combat Experience:** every battle a unit wins gives each of its individuals **+1 Strength**.
+  - **Fortifications:** a settlement defence bonus.
+
+---
+
+## 9. Hero Collection, Deck & Hand
+
+### Collection
+- A persistent, cross-game set of **hero cards** and **special unit cards**.
+- It grows through:
+  - **Volunteers:** when you take over a settlement, a hero may offer to join you.
+    You pay **1 Hero Coin** instead of its Gold cost. The hero deploys
+    immediately and is added to your Collection permanently.
+  - **The Tavern** (see [Shadow Bazaar](#10-shadow-bazaar--tavern)).
+
+### Deck
+- You build your deck from your Collection before a game starts.
+  A minimum or maximum deck size is not specified.
+- Build advice from the source:
+  - Include cards of your **own race**.
+  - Include races found **near you** on the map, since you're likely to capture their settlements.
+  - Leave out races that don't appear on the map, or appear only far away.
+
+### Hand
+- The game starts with a **5-card hand** drawn from your deck.
+- Whenever the hand has **fewer than 5 cards**, **1 card** is drawn from the deck.
+- The hand can go **above 5** through Tavern purchases or extra draws.
+
+---
+
+## 10. Shadow Bazaar & Tavern
+
+| Shop          | Cost         | You get |
+|---------------|--------------|---------|
+| Shadow Bazaar | 10 Valour    | 20 Mana |
+| Shadow Bazaar | 10 Valour    | 200 Gold |
+| Shadow Bazaar | 2 Valour     | Draw the next card from your deck into your hand |
+| Tavern        | 2 Hero Coins | Draw 3 cards of a race you choose and keep 1. It goes into your hand **and** your Collection |
+
+---
+
+## 11. Zombies
+
+### Terrain bonus
+- Each zombie race is **50% stronger** on its home terrain (see [Races](#2-races)).
+- Luring zombies off their home terrain removes the bonus.
+- A unit's current buffs appear in its details panel.
+
+### Zombie movement AI
+- Zombies always head for the **nearest unblighted settlement or Mana Pool**,
+  measured in a **straight line** ("as the Gryphon flies").
+- If two targets are equally close, one is chosen **at random**.
+- Zombies are usually **slower than their living counterparts**. Each race has its own speed.
+  For example, Undead Goblins are slower than living Goblins but faster than living Trolls.
+  Exact speeds are not specified.
+- Buffs can make zombies faster or slower.
+- Hero powers can make zombies **flee**, **follow the caster**, or stay **pinned in place**
+  for a while. The source calls controlling zombie movement a key strategy.
+
+### Zombie bosses
+- A boss is created when a zombie **blights a Mana Pool**.
+- A boss has unique powers that **affect the whole map**. Players usually have to work
+  together to defeat it.
+- Each race has two possible bosses:
+
+| Zombie race     | Boss 1          | Boss 2              |
+|-----------------|-----------------|---------------------|
+| Zombie Humans   | Dread Knight    | Necromancer Lord    |
+| Immortal Elves  | Lich King       | Nightmare Lord      |
+| Undead Dwarves  | Ironhide        | Lord of Destruction |
+| Zombie Orcs     | Queen of Lies   | Lord of Purgatory   |
+| Immortal Trolls | Trailblazer     | Lord of Confusion   |
+| Undead Goblins  | Jester King     | Master of Coin      |
+
+Boss stats and powers are not specified.
+
+---
+
+## 12. Graves, Spawning & Reaper's Tally (scoring)
+
+### Graves and spawning
+- When a zombie kills a living creature, an **infected body** goes into a
+  **battlefield graveyard** at that spot.
+- After a while, each infected body (a **restless soul**) **rises as a new zombie**.
+  The delay is not specified.
+- The more zombies spawn, the further they spread and the more graveyards they create.
+  The Blight grows exponentially.
+- **Burning bodies** stops them from ever rising:
+  - Moving **any** of your heroes or units through a graveyard burns its bodies automatically.
+    Flyers set to Avoid are the exception.
+  - Winning a battle over a graveyard burns its bodies when the battle ends.
+- The game can't end while any infected bodies remain unburned.
+
+### Reaper's Tally (scoring)
+- The game starts with a fixed **living population** across the map.
+- Living creatures die as **soldiers killed in battle** or **civilians slaughtered by zombies**.
+- The dead become restless souls. They stay that way until they are burned on a
+  pyre or rise as walking dead.
+- **Score** is the percentage of the starting living population still alive at the end.
+- The faster the game is won, the more souls survive and the higher the score.
+
+---
+
+## 13. Combat
+
+### When combat starts
+- Combat starts when enemy units meet **on a path** or **in a settlement**.
+- The battle is resolved **exactly 1 hour** after first contact.
+- Any unit that arrives at the location during that hour **joins** the battle.
+- Units that have joined a battle **can't leave** it.
+- Heroes can use special powers during the battle.
+
+### Might
+```
+Might = Population × Strength
+```
+Might is totaled for each side at the start of the battle. Strength includes terrain bonuses,
+buffs, Combat Experience and fortifications.
+
+### Melee resolution
+- The side with the **higher Might wins**.
+- **Every unit on the losing side is destroyed.**
+- The winner takes casualties. Each individual in the winning army has a
+  chance of dying, calculated from the **squared** ratio of the two sides:
+  ```
+  P(death per winning individual) = (Might_loser)² / (Might_winner)²
+  ```
+  The source's example: if the loser's squared value is 25% of the winner's, each winner has a 25% chance to die.
+  A much stronger winner loses very few troops.
+  > The in-game Combat Detail screens confirm that squared **Might** is used
+  > (see the worked examples in §18).
+- After winning, the survivors gain **Combat Experience** (+1 Strength each).
+
+### Ranged attacks
+- The attack's Might is compared with the defending stack's Might.
+- If **attack Might > defender Might**, the defender is **destroyed**.
+- Otherwise, each individual in the defender dies with probability:
+  ```
+  P(death per defender individual) = Might_attack / Might_defender
+  ```
+  This ratio is **not squared**.
+- The ranged attacker **can't be harmed**.
+
+| Aspect               | Melee                          | Ranged |
+|----------------------|--------------------------------|--------|
+| Outcome              | Higher Might wins, loser wiped out | Defender wiped out if attack > defense |
+| Casualty ratio       | Squared                        | Linear |
+| Who takes casualties | Winner (loser is wiped out)    | Defender only |
+| Attacker risk        | Yes                            | None |
+
+---
+
+## 14. Diplomacy & Trade
+
+- **Chat:** one shared channel for all players.
+- **Diplomacy:** private conversations with one or more chosen players.
+- Gold, Mana and Valour can be sent to any ally through the **Trade** section of their
+  Empire screen: pick the resource, enter an amount, press Send.
+  Examples from the source: Dwarves trade Gold to Elves for Mana, and Dwarves trade Valour with Humans.
+- Settlements can be **gifted** (costs Valour).
+- Teams are expected to send help to players who are being overrun.
+
+### Inbox
+- Shows messages, a **Combat** tab with a log of every battle and its details, and an **Events** tab
+  with spells and ranged attacks. Selecting an event pans the map to it and replays it.
+- This matters in async multiplayer, because a lot happens while you're offline.
+
+---
+
+## 15. Strategy notes from the source
+
+1. Deploy heroes right away and get them moving.
+2. Take a **Mana Pool** and several settlements toward the zombies early.
+3. Reach the outbreak quickly and **burn graveyards**. Every body burned is one fewer zombie later.
+4. **Lure zombies off their home terrain** to remove their +50% bonus.
+5. Keep zombies away from Mana Pools to prevent bosses.
+6. Coordinate with teammates and trade resources to where they're needed.
+
+---
+
+## 16. UI / Controls (original game)
+
+| Key            | Action |
+|----------------|--------|
+| Space / Q      | Next idle unit |
+| E              | Previous idle unit |
+| Arrows / WASD  | Pan map |
+| R              | Move selected unit |
+| Z              | Toggle max zoom |
+| - / +          | Zoom out / in |
+| 1              | Player screen |
+| 2              | Settlement summary |
+| 3              | Army summary |
+| O              | Options |
+| I              | Inbox |
+| H              | Help |
+| Esc            | Close current screen |
+
+Interface options: map graphics quality (low/high), UI docking (left/right/center),
+audio toggle, and leaving a game so another player can take the slot.
+
+---
+
+## 17. Values not specified by the source (to design ourselves)
+
+Items marked ✓ are partly answered by the screenshots in §18.
+
+- Valour cost to capture each settlement or Mana Pool
+- Valour reward per zombie kill (✓ observed: about 1 per 7 kills), and for long time jumps in single player
+- Valour cost of short time jumps, flyer stance changes and gifting
+- Gold and population cost of each regular unit, and its size
+- Strength and speed of every unit, hero and zombie race (✓ partial, see §18.3)
+- Hero roster, abilities, Mana costs and recharge times (✓ a few cards, see §18.4)
+- Delay before an infected body rises
+- Fortification bonus values
+- Starting map population, settlement sizes per type (✓ typical sizes, see §18.5)
+- Deck size limits; Hero Coin sources
+- Boss stats and powers (✓ three bosses, see §18.4)
+
+---
+
+## 18. Worked examples & observed values
+
+Taken from the in-game screenshots and text of the wargamer.fr preview
+(<https://www.wargamer.fr/apercu-de-blight-of-the-immortals/>, 2016). Values marked
+*(inferred)* are worked out by us from the numbers shown and weren't stated by the game.
+
+### 18.1 Melee combat, example A: defenders win (Eagles Vail, day 2, 20h)
+
+| Side      | Unit             | Might | Souls before | Souls after |
+|-----------|------------------|-------|--------------|-------------|
+| Attacker  | Immortal Elf     | 1666  | 119          | 0           |
+| Defender  | Elven Archer     | 300   | 25           | 16          |
+| Defender  | Human Swordsman  | 750   | 50           | 23          |
+| Defender  | Wizard (hero)    | 105   | 1            | 0           |
+| Defender  | Knight           | 500   | 20           | 9           |
+| Defender  | Human Swordsman  | 750   | 50           | 33          |
+| **Total** |                  | **1666 vs 2405** | 119 vs 146 | 0 vs 81 |
+
+- The game's text: *1666² is 48% of 2405². All Attackers were completely destroyed.
+  Each Defender had a 48% chance of being killed.*
+- Check: (1666 / 2405)² = 0.4799, so 48%. The defenders actually lost 65 of 146 (44.5%),
+  which is close to the expected 48%. Each individual rolls separately.
+- The player earned **17 Valour** for **119 kills**.
+
+### 18.2 Melee combat, example B: a near-even fight (Falcons Mire, day 4, 17h)
+
+- 1 Immortal Elf stack (Might 1701, 81 souls) attacks 3 Ents (Might 781, 501 and 500, 1 soul each).
+  The totals are **1701 vs 1782**.
+- (1701 / 1782)² = 0.91, so each Ent had a 91% chance of dying. **All three died anyway**,
+  even though their side won and the whole zombie stack was destroyed.
+- Lesson: winning by a small margin is nearly as costly as losing, but it still stops
+  the zombie stack. The article notes this is still better than losing to the zombies.
+- **11 Valour** for **81 kills**.
+- *(inferred)* Valour reward ≈ **⌊kills / 7⌋**, since 119 → 17 and 81 → 11.
+
+### 18.3 Battle preview, example C: overwhelming force
+
+- Stacks: 32 Dwarven Hammers (Might 1071) + 40 Dwarven Hammers (Might 640) against
+  11 Undead Dwarves (Might 297).
+- The preview reads *Living: 1711 Strength* against *Undead: 297*, and *"Living win and each soldier has a 3% chance of dying."*
+- Check: (297 / 1711)² = 0.030, so 3%. A 6:1 advantage makes losses nearly zero.
+- *(inferred)* Per-individual strengths you can read off these numbers:
+  | Unit | Might ÷ souls | Note |
+  |------|---------------|------|
+  | Dwarven Hammers (fresh) | 640 / 40 = **16** | |
+  | Dwarven Hammers (veteran) | 1071 / 32 ≈ **33** | combat experience plus buffs |
+  | Undead Dwarves | 297 / 11 = **27**; 1269 / 47 = **27** | in mountains, so 18 × 1.5 home bonus |
+  | Human Swordsman | 750 / 50 = **15** | |
+  | Elven Archer | 300 / 25 = **12** | |
+  | Knight | 500 / 20 = **25** | |
+  | Immortal Elf | 1666 / 119 ≈ **14** | |
+  | Ent (hero-like, 1 soul) | **500** base, 781 buffed | |
+
+### 18.4 Card examples (heroes and bosses)
+
+| Card | Type | Cost | Might | Speed (h/League road) | Ability |
+|------|------|------|-------|-----------------------|---------|
+| **Wizard** (Uncommon) | Mortal Human Mage, Plain | 200 Gold | 1 × 100 | 4h | **Shall Not Pass:** range 1, a Strength 200 ranged attack, and the target can't move for 6h. Recharges in 6h and costs **12 Mana**. |
+| **Gryphon Riders** (Rare) | Mortal Dwarf, flying | ~2,500 Gold (hard to read) | 5 × 300 = 1500 | Flying | Hard to read in the screenshot |
+| **Nightmare Lord** (boss) | Immortal Elf Warrior, Forest | — | 1 × 600 | 4h | **Fear the Dark:** every 18h, all Mortal units within 2 Leagues must **flee for 6h**. |
+| **The Jester King** (boss) | Immortal Goblin Warrior, Swamp | — | 1 × 300 (+400 shown) | 4h | **Fool's Power:** +100 Strength for **every hero or unit card deployed** by players. Kill him early. |
+| **The Trailblazer** (boss) | Immortal Troll Warrior, Swamp | — | 1 × 900 | **2h** (fast) | **Demon Speed:** every 18h, all Immortals within 2 Leagues **move faster**. |
+
+Card-rule patterns worth copying:
+- Normal speed is **4 hours per League on road**. Fast units take 2h.
+- Ability text gives **range in Leagues**, a **duration**, a **recharge** time ("Restores in Xh") and a **Mana cost**.
+- Boss auras work on a timer ("every 18 hours") and affect an area ("2 league area").
+- The Wizard's Might of 105 in example A, against a base of 100, shows that combat experience or buffs add to a hero's
+  strength as well.
+
+### 18.5 Map, economy and session values
+
+- **Settlement sizes seen:** villages of 20–50, towns of 100–300 (200 is common), and
+  dwarven fortresses of about 200 Dwarves paying 400 Gold a day.
+- **Monster lairs:** 20 Gryphons, 6 Hydra, 3–5 Ents.
+- **Mana Pool output:** each shows **20** on its badge (20 Mana/day).
+- **Starting resources** at game start in the screenshots: **1000 Gold, 20 Mana, 20 Valour**.
+- **Single-player jump:** "Jump 6 Hours" costs **0 Valour**. The arrows change the length.
+- **Game length:** the solo scenario "Ironwood River" (Hard) was won at **Age 7d 16h**.
+- **Score example:** **2,334 souls saved = 47%**, so the starting population was about 4,970.
+  The result screen shows a **star rating** (47% gave 2.5 of 5 stars).
+
+### 18.6 Strategy notes from the article
+
+- **Population is a double-edged sword.** It is income and the source of soldiers, but if
+  a town falls, all of it becomes zombies. Sometimes the right move is to **empty or raze
+  a village** before a horde you can't stop reaches it.
+- **Keep reserves.** Zombie movement has random elements (tie-breaks, rising graves,
+  boss auras), so you need spare troops to react.
+- **Some powers are double-edged** and can hurt you as well (for example, fear effects scattering
+  nearby units).
+- **Protect Mana.** Losing your Mana Pools leaves your heroes' abilities useless.
+- **Difficulty levels:** at least *Hard* and *Nightmare*. A 6-player Nightmare co-op is the
+  hardest setting.
+- **Meta progression:** after each game you earn **Hero points** based on your score.
+  You spend them in the Bazaar on new cards.
