@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UI icons and palette sheet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.paper{background-color:#FBF5E6;background-image:radial-gradient(rgba(59,42,32,.06) 1px,transparent 1px);background-size:6px 6px}
+.file{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:600;color:#3B2A20}
+</style>
+</helmet>
+<div class="paper" style="width: 1440px; height: 1240px; box-sizing: border-box; padding: 56px; display: flex; flex-direction: column; gap: 44px; font-family: Nunito, sans-serif; color: #3B2A20">
+<header style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 44px; font-weight: 700">UI icons &amp; palette</h1>
+<p style="margin: 0; font-size: 16px; color: #6B5A48">SVG on a 24 px grid, one colour (currentColor), 2 px rounded stroke. Each shown at 24 px (real size) and 48 px. Folder: ui/</p>
+</header>
+
+<section style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px">
+<sc-for list="{{icons}}" as="i" hint-placeholder-count="10">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 2px solid #3B2A20; border-radius: 14px; background: #FFFDF7">
+<div style="display: flex; align-items: center; gap: 20px; height: 56px">
+<dc-import name="Icon" icon="{{i.name}}" size="{{s24}}" color="#3B2A20" hint-size="24px,24px"></dc-import>
+<dc-import name="Icon" icon="{{i.name}}" size="{{s48}}" color="#3B2A20" hint-size="48px,48px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">{{i.file}}</code>
+<span style="font-size: 13px; color: #6B5A48">{{i.desc}}</span>
+</figcaption>
+</figure>
+</sc-for>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px">
+<h2 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 28px; font-weight: 600">Palette</h2>
+
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #6B5A48">Terrain base colours</h3>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px">
+<sc-for list="{{terrain}}" as="c" hint-placeholder-count="6">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="height: 56px; border-radius: 12px; border: 2px solid #3B2A20; background: {{c.hex}}"></div>
+<span style="font-size: 14px; font-weight: 800">{{c.name}}</span>
+<code class="file">{{c.hex}}</code>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #6B5A48">Sides &amp; ink</h3>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px">
+<sc-for list="{{core}}" as="c" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="height: 56px; border-radius: 12px; border: 2px solid #3B2A20; background: {{c.hex}}"></div>
+<span style="font-size: 14px; font-weight: 800">{{c.name}}</span>
+<code class="file">{{c.hex}}</code>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #6B5A48">Player colours (inner ring)</h3>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px">
+<sc-for list="{{players}}" as="p" hint-placeholder-count="6">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; background: #8C9A5F; border: 2px solid #3B2A20">
+<dc-import name="Token" kind="dodo-forest" frame="dodo" ring="{{p.hex}}" strength="{{zero}}" size="{{s64}}" hint-size="64px,64px"></dc-import>
+<div style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #3B2A20; background: {{p.hex}}"></div>
+</div>
+<span style="font-size: 14px; font-weight: 800">{{p.name}}</span>
+<code class="file">{{p.hex}}</code>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      s24: 24, s48: 48, s64: 64, zero: 0,
+      icons: [
+        { name: 'fruit', file: 'icon-fruit.svg', desc: 'Fruit' },
+        { name: 'courage', file: 'icon-courage.svg', desc: 'Courage (a feather)' },
+        { name: 'egg', file: 'icon-egg.svg', desc: 'Eggs' },
+        { name: 'dodo', file: 'icon-dodo.svg', desc: 'Population' },
+        { name: 'clock-running', file: 'icon-clock-running.svg', desc: 'Clock running' },
+        { name: 'clock-paused', file: 'icon-clock-paused.svg', desc: 'Clock paused' },
+        { name: 'inbox', file: 'icon-inbox.svg', desc: 'Inbox' },
+        { name: 'train', file: 'icon-train.svg', desc: 'Train a flock' },
+        { name: 'merge', file: 'icon-merge.svg', desc: 'Merge flocks' },
+        { name: 'split', file: 'icon-split.svg', desc: 'Split a flock' }
+      ],
+      terrain: [
+        { name: 'Coast', hex: '#E8D3A0' }, { name: 'Grassland', hex: '#C2C46E' }, { name: 'Forest', hex: '#3F6E3D' },
+        { name: 'Marsh', hex: '#8C9A5F' }, { name: 'Mountains', hex: '#6F7B5E' }, { name: 'Water', hex: '#4DB3B0' }
+      ],
+      core: [
+        { name: 'Dodo green', hex: '#4E8B3A' }, { name: 'Invader red', hex: '#C8463A' }, { name: 'Battle gold', hex: '#F4C531' },
+        { name: 'Outline ink', hex: '#3B2A20' }, { name: 'Paper', hex: '#FBF5E6' }, { name: 'Basalt', hex: '#7A766F' }
+      ],
+      players: [
+        { name: 'Blue', hex: '#0072B2' }, { name: 'Sky', hex: '#56B4E9' }, { name: 'Yellow', hex: '#F0E442' },
+        { name: 'Pink', hex: '#CC79A7' }, { name: 'Bone white', hex: '#F4EFE6' }, { name: 'Charcoal', hex: '#2B2522' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

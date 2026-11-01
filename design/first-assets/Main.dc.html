@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dodo Clash · map screen</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0072B2}a:hover{color:#3B2A20}
+.paper{background-color:#FBF5E6;background-image:radial-gradient(rgba(59,42,32,.06) 1px,transparent 1px);background-size:6px 6px}
+</style>
+</helmet>
+<div style="position: relative; width: 1440px; height: 900px; overflow: hidden; background: #4DB3B0; font-family: Nunito, sans-serif; color: #3B2A20">
+
+<header class="paper" style="position: absolute; left: 0; top: 0; width: 1440px; height: 56px; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; gap: 20px; border-bottom: 3px solid #3B2A20; z-index: 2">
+<div style="font-family: Fredoka, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: 0.5px">Dodo Clash</div>
+<div style="width: 2px; height: 28px; background: #3B2A20; opacity: 0.25"></div>
+<div style="font-family: Fredoka, sans-serif; font-weight: 600; font-size: 20px">Day 3 · 14:00</div>
+<div style="display: flex; align-items: center; gap: 6px; padding: 4px 12px 4px 8px; border-radius: 999px; background: #DDEBCF; border: 2px solid #3B2A20; font-size: 14px; font-weight: 700">
+<dc-import name="Icon" icon="clock-running" size="{{s20}}" color="#3B2A20" hint-size="20px,20px"></dc-import>
+<span>running · pauses at 17:30</span>
+</div>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; align-items: center; gap: 6px; font-family: Fredoka, sans-serif; font-weight: 600; font-size: 20px">
+<dc-import name="Icon" icon="fruit" size="{{s20}}" color="#3B2A20" hint-size="20px,20px"></dc-import>
+<span>42</span>
+<span style="font-family: Nunito, sans-serif; font-size: 13px; font-weight: 700; color: #6B5A48">Fruit</span>
+</div>
+<div style="display: flex; align-items: center; gap: 6px; font-family: Fredoka, sans-serif; font-weight: 600; font-size: 20px">
+<dc-import name="Icon" icon="courage" size="{{s20}}" color="#3B2A20" hint-size="20px,20px"></dc-import>
+<span>7</span>
+<span style="font-family: Nunito, sans-serif; font-size: 13px; font-weight: 700; color: #6B5A48">Courage</span>
+</div>
+<button aria-label="Inbox, 2 new messages" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 2px solid #3B2A20; border-radius: 12px; background: #FBF5E6; color: #3B2A20; cursor: pointer; padding: 0">
+<dc-import name="Icon" icon="inbox" size="{{s20}}" color="#3B2A20" hint-size="20px,20px"></dc-import>
+<span style="position: absolute; right: -7px; top: -7px; min-width: 20px; height: 20px; box-sizing: border-box; padding: 0 5px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: #C8463A; color: #FFFFFF; border: 2px solid #3B2A20; font-size: 12px; font-weight: 800">2</span>
+</button>
+</header>
+
+<div style="position: absolute; left: 0; top: 56px; width: 1120px; height: 844px; overflow: hidden">
+<sc-for list="{{hexes}}" as="h" hint-placeholder-count="12">
+<div style="position: absolute; left: {{h.left}}px; top: {{h.top}}px">
+<dc-import name="Hex" kind="{{h.kind}}" size="{{hs}}" grid="{{yes}}" hint-size="128px,111px"></dc-import>
+</div>
+</sc-for>
+
+<svg viewBox="0 0 1120 844" style="position: absolute; left: 0; top: 0; width: 1120px; height: 844px; pointer-events: none" aria-hidden="true">
+<defs>
+<pattern id="waypoints" x="32" y="15.5" width="192" height="111" patternUnits="userSpaceOnUse">
+<path d="M0 0 V111 M96 0 V111 M0 0 L96 55.5 L192 0 M0 111 L96 55.5 L192 111" fill="none" stroke="#FBF5E6" stroke-opacity="0.6" stroke-width="1.5" stroke-dasharray="3 6"></path>
+<g fill="#FBF5E6" fill-opacity="0.9" stroke="#3B2A20" stroke-opacity="0.4" stroke-width="1">
+<circle cx="0" cy="0" r="3"></circle>
+<circle cx="192" cy="0" r="3"></circle>
+<circle cx="0" cy="111" r="3"></circle>
+<circle cx="192" cy="111" r="3"></circle>
+<circle cx="96" cy="55.5" r="3"></circle>
+</g>
+</pattern>
+</defs>
+<rect x="0" y="0" width="1120" height="844" fill="url(#waypoints)"></rect>
+<path d="M224 348.5 L320 404 L416 348.5 L481 386" fill="none" stroke="#3B2A20" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M224 348.5 L320 404 L416 348.5 L481 386" fill="none" stroke="#F0E442" stroke-width="4" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round"></path>
+<polygon points="489,390 474,391 481,377" fill="#F0E442" stroke="#3B2A20" stroke-width="2" stroke-linejoin="round"></polygon>
+<path d="M608 459.5 L673 497" fill="none" stroke="#FBF5E6" stroke-width="8" stroke-linecap="round"></path>
+<path d="M608 459.5 L673 497" fill="none" stroke="#0072B2" stroke-width="4" stroke-dasharray="9 7" stroke-linecap="round"></path>
+<polygon points="681,501 666,502 673,488" fill="#0072B2" stroke="#FBF5E6" stroke-width="2" stroke-linejoin="round"></polygon>
+</svg>
+
+<div style="position: absolute; left: 470px; top: 362px; width: 84px; height: 84px; box-sizing: border-box; border-radius: 50%; border: 3px dashed #0072B2; box-shadow: 0 0 0 3px rgba(251, 245, 230, 0.75)"></div>
+
+<sc-for list="{{locations}}" as="l" hint-placeholder-count="4">
+<div style="position: absolute; left: {{l.left}}px; top: {{l.top}}px">
+<dc-import name="Location" kind="{{l.kind}}" size="{{s64}}" hint-size="64px,64px"></dc-import>
+</div>
+</sc-for>
+
+<svg viewBox="0 0 72 56" style="position: absolute; left: 956px; top: 596px; width: 72px; height: 56px" aria-hidden="true">
+<path d="M6 36 L66 36 L58 50 L14 50 Z" fill="#6B4A2E" stroke="#3B2A20" stroke-width="3" stroke-linejoin="round"></path>
+<path d="M10 40 L62 40" stroke="#C9A35A" stroke-width="2"></path>
+<path d="M22 36 V8 M38 36 V5 M54 36 V14" stroke="#3B2A20" stroke-width="2.5" stroke-linecap="round"></path>
+<path d="M14 12 H30 V30 H14 Z" fill="#F1E8D4" stroke="#3B2A20" stroke-width="2" stroke-linejoin="round"></path>
+<path d="M30 9 H46 V30 H30 Z" fill="#F1E8D4" stroke="#3B2A20" stroke-width="2" stroke-linejoin="round"></path>
+<path d="M48 18 H60 V30 H48 Z" fill="#F1E8D4" stroke="#3B2A20" stroke-width="2" stroke-linejoin="round"></path>
+<rect x="38" y="0" width="10" height="2" fill="#C8463A"></rect>
+<rect x="38" y="2" width="10" height="2" fill="#FFFFFF"></rect>
+<rect x="38" y="4" width="10" height="2" fill="#0072B2"></rect>
+<path d="M2 53 q6 -4 12 0 t12 0 M44 54 q6 -4 12 0 t12 0" stroke="#9FE0D8" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+</svg>
+
+<sc-for list="{{tokens}}" as="t" hint-placeholder-count="9">
+<div style="position: absolute; left: {{t.left}}px; top: {{t.top}}px">
+<dc-import name="Token" kind="{{t.kind}}" frame="{{t.frame}}" ring="{{t.ring}}" strength="{{t.strength}}" size="{{s64}}" hint-size="64px,64px"></dc-import>
+</div>
+</sc-for>
+
+<div style="position: absolute; left: {{battle.left}}px; top: {{battle.top}}px">
+<dc-import name="Sprite" kind="battle" size="{{s64}}" hint-size="64px,64px"></dc-import>
+</div>
+
+<div style="position: absolute; left: 640px; top: 450px; padding: 2px 10px; border-radius: 999px; background: #FBF5E6; border: 2px solid #3B2A20; font-family: Fredoka, sans-serif; font-weight: 600; font-size: 14px">2h</div>
+<div style="position: absolute; left: 298px; top: 420px; padding: 2px 10px; border-radius: 999px; background: #FBF5E6; border: 2px solid #3B2A20; font-family: Fredoka, sans-serif; font-weight: 600; font-size: 14px">5h</div>
+
+<div class="paper" role="status" style="position: absolute; left: 16px; bottom: 20px; display: flex; gap: 12px; align-items: center; padding: 10px 18px 10px 10px; border: 3px solid #3B2A20; border-radius: 16px; box-shadow: 0 4px 0 #3B2A20; max-width: 400px">
+<dc-import name="Token" kind="pig" frame="invader" strength="{{zero}}" size="{{s40}}" hint-size="40px,40px"></dc-import>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-weight: 800; font-size: 15px">Pigs are heading for your colony.</div>
+<div style="font-size: 12px; font-weight: 600; color: #6B5A48">Inbox · Mare aux Songes · just now</div>
+</div>
+</div>
+</div>
+
+<aside class="paper" style="position: absolute; left: 1120px; top: 56px; width: 320px; height: 844px; box-sizing: border-box; padding: 20px; border-left: 3px solid #3B2A20; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; gap: 12px; align-items: center">
+<div style="width: 72px; height: 72px; flex-shrink: 0; border-radius: 16px; background: #DCE3BF; border: 2px solid #3B2A20; display: flex; align-items: center; justify-content: center">
+<dc-import name="Location" kind="colony" size="{{s64}}" hint-size="64px,64px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 12px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #6B5A48">Your colony · Marsh Dodos</div>
+<h2 style="margin: 0; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1">Mare aux Songes</h2>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 2px solid #3B2A20; border-radius: 14px; background: #FFFDF7">
+<div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #6B5A48">
+<dc-import name="Icon" icon="dodo" size="{{s18}}" color="#6B5A48" hint-size="18px,18px"></dc-import>
+<span>Adults</span>
+</div>
+<div style="font-family: Fredoka, sans-serif; font-weight: 600; font-size: 30px; line-height: 1">38</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 2px solid #3B2A20; border-radius: 14px; background: #FFFDF7">
+<div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #6B5A48">
+<dc-import name="Icon" icon="egg" size="{{s18}}" color="#6B5A48" hint-size="18px,18px"></dc-import>
+<span>Eggs</span>
+</div>
+<div style="font-family: Fredoka, sans-serif; font-weight: 600; font-size: 30px; line-height: 1">12</div>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; border: 2px solid #3B2A20; border-radius: 14px; background: #FFFDF7">
+<div style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: #6B5A48">
+<dc-import name="Icon" icon="fruit" size="{{s18}}" color="#6B5A48" hint-size="18px,18px"></dc-import>
+<span>Fruit per day</span>
+</div>
+<div style="font-family: Fredoka, sans-serif; font-weight: 600; font-size: 20px">+[N]</div>
+</div>
+
+<div style="height: 2px; background: #3B2A20; opacity: 0.2"></div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 52px; box-sizing: border-box; padding: 8px 10px 8px 16px; border: 3px solid #3B2A20; border-radius: 14px; background: #3F7A2E; color: #FFFFFF; font-family: Fredoka, sans-serif; font-size: 19px; font-weight: 600; box-shadow: 0 4px 0 #3B2A20; cursor: pointer">
+<span style="display: flex; align-items: center; gap: 8px">
+<dc-import name="Icon" icon="train" size="{{s20}}" color="#FFFFFF" hint-size="20px,20px"></dc-import>
+<span>Train flock</span>
+</span>
+<span style="display: flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; background: #FBF5E6; color: #3B2A20; font-size: 15px">
+<dc-import name="Icon" icon="fruit" size="{{s18}}" color="#3B2A20" hint-size="18px,18px"></dc-import>
+<span>[cost]</span>
+</span>
+</button>
+<p style="margin: 0; padding: 10px 12px; border: 2px solid #C8463A; border-radius: 12px; background: #FBE3DA; color: #7A2A20; font-size: 13px; font-weight: 700; line-height: 1.35">Leave adults at home. If you train away the last ones, the colony stops laying eggs.</p>
+</div>
+
+<div style="height: 2px; background: #3B2A20; opacity: 0.2"></div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 12px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #6B5A48">Nearby</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<dc-import name="Location" kind="den-pig" size="{{s40}}" hint-size="40px,40px"></dc-import>
+<div style="display: flex; flex-direction: column">
+<span style="font-weight: 800; font-size: 14px">Pig wallow</span>
+<span style="font-size: 13px; color: #6B5A48">2 waypoints · your Mud Guard is on the way</span>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<dc-import name="Location" kind="ruin" size="{{s40}}" hint-size="40px,40px"></dc-import>
+<div style="display: flex; flex-direction: column">
+<span style="font-weight: 800; font-size: 14px">Fallen colony</span>
+<span style="font-size: 13px; color: #6B5A48">Inland · nobody nests here any more</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const rows = ['HHFFFGGGCWWW', 'HHFFFFGGCWWW', 'HHFFFGGGCWWW', 'HFFFGGMMCWWW', 'FFFGGMMMCCWW', 'FFGGMMMMGCWW', 'FHGGGMMGCCWW', 'HHGGGGCCCWWW', 'GGCCCCCWWWWW', 'CCWWWWWWWWWW'];
+    const K = { W: 'water', C: 'coast', G: 'grassland', F: 'forest', M: 'marsh', H: 'mountains' };
+    const at = (c, r) => ({ x: c * 96 + 32, y: r * 111 + (c % 2 ? 55.5 : 0) + 15.5 });
+    const hexes = [];
+    rows.forEach((row, i) => row.split('').forEach((ch, c) => {
+      const p = at(c, i - 1);
+      hexes.push({ kind: K[ch], left: p.x - 64, top: p.y - 55.5 });
+    }));
+    const on = (c, r, o) => { const p = at(c, r); return Object.assign({ left: p.x - 32, top: p.y - 32 }, o); };
+    const xy = (x, y, o) => Object.assign({ left: x - 32, top: y - 32 }, o);
+    const BLUE = '#0072B2', YELLOW = '#F0E442', PINK = '#CC79A7';
+    const pig = (x, y, n) => xy(x, y, { kind: 'pig', frame: 'invader', ring: BLUE, strength: n });
+    const rat = (c, r, n) => on(c, r, { kind: 'rat', frame: 'invader', ring: BLUE, strength: n });
+    return {
+      hexes, hs: 128, s64: 64, s40: 40, s20: 20, s18: 18, yes: true, zero: 0,
+      locations: [
+        on(5, 3, { kind: 'colony' }),
+        on(7, 4, { kind: 'den-pig' }),
+        on(4, 2, { kind: 'ruin' }),
+        on(9, 4, { kind: 'harbour' })
+      ],
+      tokens: [
+        rat(8, 4, 4), rat(8, 5, 5), rat(7, 5, 3),
+        pig(262, 612, 0), pig(270, 624, 0), pig(278, 636, 30),
+        xy(376, 622, { kind: 'dodo-highland', frame: 'dodo', ring: PINK, strength: 18 }),
+        on(2, 3, { kind: 'dodo-forest', frame: 'dodo', ring: YELLOW, strength: 15 }),
+        on(6, 4, { kind: 'dodo-marsh', frame: 'dodo', ring: BLUE, strength: 24 })
+      ],
+      battle: xy(320, 616, {})
+    };
+  }
+}
+</script>
+</body>
+</html>

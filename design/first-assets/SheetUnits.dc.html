@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Units, frames and markers sheet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.paper{background-color:#FBF5E6;background-image:radial-gradient(rgba(59,42,32,.06) 1px,transparent 1px);background-size:6px 6px}
+.checker{background-color:#FFFFFF;background-image:linear-gradient(45deg,#ECE4D3 25%,transparent 25%,transparent 75%,#ECE4D3 75%),linear-gradient(45deg,#ECE4D3 25%,transparent 25%,transparent 75%,#ECE4D3 75%);background-size:16px 16px;background-position:0 0,8px 8px}
+.file{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:600;color:#3B2A20}
+</style>
+</helmet>
+<div class="paper" style="width: 1440px; height: 1340px; box-sizing: border-box; padding: 56px; display: flex; flex-direction: column; gap: 44px; font-family: Nunito, sans-serif; color: #3B2A20">
+<header style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 44px; font-weight: 700">Units, frames &amp; markers</h1>
+<p style="margin: 0; font-size: 16px; color: #6B5A48">Token portraits 128 × 128 (animal in a 112 px circle, no frame), frame rings 128 × 128, badge 64 × 32, markers 64 × 64. Drawn at 2×, shown at real pixel size. Folder: units/</p>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 28px; font-weight: 600">Portraits</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px">
+<sc-for list="{{units}}" as="u" hint-placeholder-count="8">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; border-radius: 8px">
+<dc-import name="Token" kind="{{u.kind}}" frame="none" strength="{{zero}}" size="{{s128}}" hint-size="128px,128px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">{{u.file}}</code>
+<span style="font-size: 13px; color: #6B5A48">{{u.desc}}</span>
+</figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 28px; font-weight: 600">Frames, badge &amp; markers</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; border-radius: 8px">
+<dc-import name="Token" kind="none" frame="dodo" ring="#D9D2C3" strength="{{zero}}" size="{{s128}}" hint-size="128px,128px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">frame-dodo.png</code>
+<span style="font-size: 13px; color: #6B5A48">Green ring; the neutral inner ring is tinted per player</span>
+</figcaption>
+</figure>
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; border-radius: 8px">
+<dc-import name="Token" kind="none" frame="invader" strength="{{zero}}" size="{{s128}}" hint-size="128px,128px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">frame-invader.png</code>
+<span style="font-size: 13px; color: #6B5A48">Red ring for sailors, pigs and rats</span>
+</figcaption>
+</figure>
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; border-radius: 8px">
+<dc-import name="Sprite" kind="badge" size="{{s64}}" hint-size="64px,32px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">badge-strength.png</code>
+<span style="font-size: 13px; color: #6B5A48">64 × 32 · the game draws the number</span>
+</figcaption>
+</figure>
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; border-radius: 8px">
+<dc-import name="Sprite" kind="battle" size="{{s64}}" hint-size="64px,64px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">marker-battle.png</code>
+<span style="font-size: 13px; color: #6B5A48">Beak meets snout in a clash star</span>
+</figcaption>
+</figure>
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; border-radius: 8px">
+<dc-import name="Sprite" kind="flee" size="{{s64}}" hint-size="64px,64px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">marker-flee.png</code>
+<span style="font-size: 13px; color: #6B5A48">Dust cloud with a retreat arrow</span>
+</figcaption>
+</figure>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 28px; font-weight: 600">Put together, at 100% zoom (64 px)</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; padding: 28px 32px 36px; border-radius: 16px; background: #B4B862; border: 3px solid #3B2A20">
+<sc-for list="{{inPlay}}" as="t" hint-placeholder-count="8">
+<dc-import name="Token" kind="{{t.kind}}" frame="{{t.frame}}" ring="{{t.ring}}" strength="{{t.strength}}" size="{{s64}}" hint-size="64px,64px"></dc-import>
+</sc-for>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1340}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      s128: 128, s64: 64, zero: 0,
+      units: [
+        { kind: 'dodo-forest', file: 'unit-dodo-forest.png', desc: 'Forest Dodo · Peck Flock' },
+        { kind: 'dodo-marsh', file: 'unit-dodo-marsh.png', desc: 'Marsh Dodo · Mud Guard' },
+        { kind: 'dodo-highland', file: 'unit-dodo-highland.png', desc: 'Highland Dodo · Rock Beaks' },
+        { kind: 'dodo-shore', file: 'unit-dodo-shore.png', desc: 'Shore Dodo · Tide Runners' },
+        { kind: 'tortoise', file: 'unit-tortoise.png', desc: 'Giant tortoise ally' },
+        { kind: 'sailor', file: 'unit-sailor.png', desc: 'Dutch sailor, around 1600' },
+        { kind: 'pig', file: 'unit-pig.png', desc: 'Feral pig, snout down' },
+        { kind: 'rat', file: 'unit-rat.png', desc: 'A small swarm of rats' }
+      ],
+      inPlay: [
+        { kind: 'dodo-forest', frame: 'dodo', ring: '#F0E442', strength: 15 },
+        { kind: 'dodo-marsh', frame: 'dodo', ring: '#0072B2', strength: 24 },
+        { kind: 'dodo-highland', frame: 'dodo', ring: '#CC79A7', strength: 18 },
+        { kind: 'dodo-shore', frame: 'dodo', ring: '#56B4E9', strength: 9 },
+        { kind: 'tortoise', frame: 'dodo', ring: '#F4EFE6', strength: 40 },
+        { kind: 'sailor', frame: 'invader', ring: '#0072B2', strength: 12 },
+        { kind: 'pig', frame: 'invader', ring: '#0072B2', strength: 10 },
+        { kind: 'rat', frame: 'invader', ring: '#0072B2', strength: 4 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

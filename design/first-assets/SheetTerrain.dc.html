@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Terrain and locations sheet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.paper{background-color:#FBF5E6;background-image:radial-gradient(rgba(59,42,32,.06) 1px,transparent 1px);background-size:6px 6px}
+.checker{background-color:#FFFFFF;background-image:linear-gradient(45deg,#ECE4D3 25%,transparent 25%,transparent 75%,#ECE4D3 75%),linear-gradient(45deg,#ECE4D3 25%,transparent 25%,transparent 75%,#ECE4D3 75%);background-size:16px 16px;background-position:0 0,8px 8px}
+.file{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:600;color:#3B2A20}
+</style>
+</helmet>
+<div class="paper" style="width: 1440px; height: 1420px; box-sizing: border-box; padding: 56px; display: flex; flex-direction: column; gap: 44px; font-family: Nunito, sans-serif; color: #3B2A20">
+<header style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 44px; font-weight: 700">Terrain &amp; locations</h1>
+<p style="margin: 0; font-size: 16px; color: #6B5A48">Flat-top hex tiles 256 × 222 and location icons 128 × 128, drawn at 2× and shown at their real pixel size. Folder: terrain/</p>
+</header>
+
+<section style="display: flex; gap: 64px; align-items: flex-start">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; width: 832px">
+<sc-for list="{{terrains}}" as="t" hint-placeholder-count="6">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<dc-import name="Hex" kind="{{t.kind}}" size="{{s256}}" hint-size="256px,222px"></dc-import>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">{{t.file}}</code>
+<span style="font-size: 13px; color: #6B5A48">{{t.desc}}</span>
+</figcaption>
+</figure>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 48px">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 12px">
+<div style="position: relative; width: 320px; height: 333px">
+<sc-for list="{{cluster}}" as="c" hint-placeholder-count="7">
+<div style="position: absolute; left: {{c.left}}px; top: {{c.top}}px">
+<dc-import name="Hex" kind="{{c.kind}}" size="{{s128}}" hint-size="128px,111px"></dc-import>
+</div>
+</sc-for>
+</div>
+<figcaption style="max-width: 320px; font-size: 13px; color: #6B5A48">Tiling check at 100% zoom: a marsh tile with six different neighbours. In the PNGs, edges blend softly into each other; here they still meet hard.</figcaption>
+</figure>
+
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 256px; padding: 16px 0; border-radius: 8px">
+<dc-import name="Sprite" kind="footpath" size="{{s256}}" hint-size="256px,32px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">edge-footpath.png</code>
+<span style="font-size: 13px; color: #6B5A48">256 × 32 · trampled trail, tiles lengthwise</span>
+</figcaption>
+</figure>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-family: Fredoka, sans-serif; font-size: 28px; font-weight: 600">Locations</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px">
+<sc-for list="{{locations}}" as="l" hint-placeholder-count="8">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+<div class="checker" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; border-radius: 8px">
+<dc-import name="Location" kind="{{l.kind}}" size="{{s128}}" hint-size="128px,128px"></dc-import>
+</div>
+<figcaption style="display: flex; flex-direction: column; gap: 2px">
+<code class="file">{{l.file}}</code>
+<span style="font-size: 13px; color: #6B5A48">{{l.desc}}</span>
+</figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1420}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const c = (kind, dx, dy) => ({ kind, left: 160 + dx - 64, top: 166.5 + dy - 55.5 });
+    return {
+      s256: 256, s128: 128,
+      terrains: [
+        { kind: 'coast', file: 'terrain-coast.png', desc: 'Sandy beach with a bit of lagoon edge' },
+        { kind: 'grassland', file: 'terrain-grassland.png', desc: 'Dry grass of the central plateau' },
+        { kind: 'forest', file: 'terrain-forest.png', desc: 'Dense ebony rainforest' },
+        { kind: 'marsh', file: 'terrain-marsh.png', desc: 'Mare aux Songes: reeds, pools, mud' },
+        { kind: 'mountains', file: 'terrain-mountains.png', desc: 'Basalt peaks, Le Pouce on the right' },
+        { kind: 'water', file: 'terrain-water.png', desc: 'Turquoise lagoon with a hint of reef' }
+      ],
+      cluster: [
+        c('forest', 0, -111), c('grassland', 96, -55.5), c('coast', 96, 55.5),
+        c('water', 0, 111), c('grassland', -96, 55.5), c('mountains', -96, -55.5), c('marsh', 0, 0)
+      ],
+      locations: [
+        { kind: 'colony', file: 'loc-colony.png', desc: 'Dodo nesting ground with eggs' },
+        { kind: 'colony-wild', file: 'loc-colony-wild.png', desc: 'Untamed, overgrown, not yet claimed' },
+        { kind: 'ruin', file: 'loc-ruin.png', desc: 'A fallen colony: trampled, broken shells' },
+        { kind: 'harbour', file: 'loc-harbour.png', desc: 'Jetty, rowing boat, Dutch ship beyond' },
+        { kind: 'settlement-tortoise', file: 'loc-settlement-tortoise.png', desc: 'Giant tortoise resting ground' },
+        { kind: 'den-pig', file: 'loc-den-pig.png', desc: 'Muddy pig wallow' },
+        { kind: 'den-rat', file: 'loc-den-rat.png', desc: 'Rat nest in a hollow log' },
+        { kind: 'den-sailor', file: 'loc-den-sailor.png', desc: 'Sailors’ camp: tent, fire, barrel' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

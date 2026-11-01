@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hex tile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: {{w}}px; height: {{h}}px">
+
+<sc-if value="{{is.coast}}" hint-placeholder-val="{{false}}">
+<svg viewBox="0 0 256 222" style="position: absolute; left: 0; top: 0; display: block; width: {{w}}px; height: {{h}}px" aria-hidden="true">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="#E8D3A0"></polygon>
+<ellipse cx="96" cy="146" rx="62" ry="30" fill="#DDC58E"></ellipse>
+<ellipse cx="162" cy="72" rx="42" ry="20" fill="#7CCBC4" stroke="#F4EBD0" stroke-width="5"></ellipse>
+<path d="M146 68 q7 -4 14 0 M168 78 q6 -4 12 0" stroke="#B8E6DF" stroke-width="3" fill="none" stroke-linecap="round"></path>
+<path d="M78 82 a7 7 0 0 1 14 0 Z" fill="#F4E6D8" stroke="#B89A6A" stroke-width="2"></path>
+<path d="M176 150 a6 6 0 0 1 12 0 Z" fill="#F4E6D8" stroke="#B89A6A" stroke-width="2"></path>
+<g fill="#C9B07E">
+<circle cx="138" cy="162" r="4"></circle>
+<circle cx="148" cy="170" r="2.5"></circle>
+<circle cx="60" cy="120" r="3"></circle>
+<circle cx="200" cy="112" r="3.5"></circle>
+<circle cx="110" cy="40" r="3"></circle>
+</g>
+</svg>
+</sc-if>
+
+<sc-if value="{{is.grassland}}" hint-placeholder-val="{{true}}">
+<svg viewBox="0 0 256 222" style="position: absolute; left: 0; top: 0; display: block; width: {{w}}px; height: {{h}}px" aria-hidden="true">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="#C2C46E"></polygon>
+<ellipse cx="82" cy="72" rx="42" ry="18" fill="#B4B862"></ellipse>
+<ellipse cx="170" cy="152" rx="46" ry="20" fill="#B4B862"></ellipse>
+<ellipse cx="152" cy="58" rx="28" ry="10" fill="#CFCF84"></ellipse>
+<ellipse cx="96" cy="164" rx="22" ry="8" fill="#CFCF84"></ellipse>
+<g stroke="#8A8E3E" stroke-width="3.5" stroke-linecap="round" fill="none">
+<path d="M60 122 l-4 -14 M66 122 l0 -16 M72 122 l4 -13"></path>
+<path d="M150 104 l-4 -13 M156 104 l0 -15 M162 104 l4 -12"></path>
+<path d="M110 176 l-4 -12 M116 176 l0 -14 M122 176 l4 -11"></path>
+<path d="M192 124 l-3 -11 M198 124 l1 -13"></path>
+<path d="M110 52 l-3 -11 M116 52 l1 -13 M122 52 l4 -10"></path>
+</g>
+</svg>
+</sc-if>
+
+<sc-if value="{{is.forest}}" hint-placeholder-val="{{false}}">
+<svg viewBox="0 0 256 222" style="position: absolute; left: 0; top: 0; display: block; width: {{w}}px; height: {{h}}px" aria-hidden="true">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="#3F6E3D"></polygon>
+<g stroke="#2C4E2A" stroke-width="3">
+<circle cx="128" cy="42" r="24" fill="#4E8447"></circle>
+<circle cx="72" cy="66" r="24" fill="#4E8447"></circle>
+<circle cx="184" cy="66" r="24" fill="#4E8447"></circle>
+<circle cx="102" cy="108" r="25" fill="#4E8447"></circle>
+<circle cx="160" cy="110" r="25" fill="#4E8447"></circle>
+<circle cx="70" cy="156" r="24" fill="#4E8447"></circle>
+<circle cx="190" cy="154" r="24" fill="#4E8447"></circle>
+<circle cx="130" cy="168" r="25" fill="#4E8447"></circle>
+</g>
+<g fill="#6A9E5A">
+<circle cx="121" cy="35" r="10"></circle>
+<circle cx="65" cy="59" r="10"></circle>
+<circle cx="177" cy="59" r="10"></circle>
+<circle cx="95" cy="101" r="10"></circle>
+<circle cx="153" cy="103" r="10"></circle>
+<circle cx="63" cy="149" r="10"></circle>
+<circle cx="183" cy="147" r="10"></circle>
+<circle cx="123" cy="161" r="10"></circle>
+</g>
+</svg>
+</sc-if>
+
+<sc-if value="{{is.marsh}}" hint-placeholder-val="{{false}}">
+<svg viewBox="0 0 256 222" style="position: absolute; left: 0; top: 0; display: block; width: {{w}}px; height: {{h}}px" aria-hidden="true">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="#8C9A5F"></polygon>
+<ellipse cx="104" cy="140" rx="54" ry="24" fill="#7A6E4A"></ellipse>
+<ellipse cx="150" cy="78" rx="44" ry="18" fill="#6FAFA6" stroke="#A8C37E" stroke-width="4"></ellipse>
+<ellipse cx="88" cy="152" rx="28" ry="11" fill="#6FAFA6" stroke="#A8C37E" stroke-width="4"></ellipse>
+<ellipse cx="182" cy="152" rx="20" ry="8" fill="#6FAFA6" stroke="#A8C37E" stroke-width="4"></ellipse>
+<path d="M136 74 q8 -4 16 0 M78 150 q6 -3 12 0" stroke="#B8E6DF" stroke-width="3" fill="none" stroke-linecap="round"></path>
+<g stroke="#5C6B34" stroke-width="3.5" stroke-linecap="round">
+<path d="M70 104 V76 M78 106 V68 M86 104 V80"></path>
+<path d="M196 116 V90 M204 118 V82"></path>
+<path d="M120 196 V170 M128 194 V164"></path>
+</g>
+<g fill="#7A5233">
+<ellipse cx="78" cy="68" rx="3.5" ry="8"></ellipse>
+<ellipse cx="204" cy="82" rx="3.5" ry="8"></ellipse>
+<ellipse cx="128" cy="164" rx="3.5" ry="8"></ellipse>
+</g>
+</svg>
+</sc-if>
+
+<sc-if value="{{is.mountains}}" hint-placeholder-val="{{false}}">
+<svg viewBox="0 0 256 222" style="position: absolute; left: 0; top: 0; display: block; width: {{w}}px; height: {{h}}px" aria-hidden="true">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="#6F7B5E"></polygon>
+<g fill="#5F6B4F">
+<circle cx="70" cy="70" r="6"></circle>
+<circle cx="190" cy="60" r="5"></circle>
+<circle cx="120" cy="196" r="6"></circle>
+<circle cx="214" cy="140" r="5"></circle>
+</g>
+<path d="M44 176 L100 70 L156 176 Z" fill="#5E5A55"></path>
+<path d="M100 70 L44 176 L90 176 Z" fill="#8E8981"></path>
+<path d="M44 176 L100 70 L156 176 Z" fill="none" stroke="#3B2A20" stroke-width="4" stroke-linejoin="round"></path>
+<path d="M128 182 L154 96 C156 76 180 76 182 96 L208 182 Z" fill="#5E5A55"></path>
+<path d="M154 96 C156 76 168 76 168 76 L160 182 L128 182 Z" fill="#8E8981"></path>
+<path d="M128 182 L154 96 C156 76 180 76 182 96 L208 182 Z" fill="none" stroke="#3B2A20" stroke-width="4" stroke-linejoin="round"></path>
+<path d="M90 92 L100 70 L110 92 L104 88 L100 94 L95 88 Z" fill="#B9B4AA"></path>
+</svg>
+</sc-if>
+
+<sc-if value="{{is.water}}" hint-placeholder-val="{{false}}">
+<svg viewBox="0 0 256 222" style="position: absolute; left: 0; top: 0; display: block; width: {{w}}px; height: {{h}}px" aria-hidden="true">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="#4DB3B0"></polygon>
+<ellipse cx="128" cy="116" rx="72" ry="38" fill="#44A7A5"></ellipse>
+<g stroke="#8FD8D0" stroke-width="5" fill="none" stroke-linecap="round">
+<path d="M70 70 q10 -7 20 0 t20 0"></path>
+<path d="M140 50 q10 -7 20 0 t20 0"></path>
+<path d="M150 150 q10 -7 20 0 t20 0"></path>
+<path d="M60 150 q10 -7 20 0 t20 0"></path>
+<path d="M108 116 q10 -7 20 0"></path>
+</g>
+<path d="M60 194 C100 180 160 200 200 186" stroke="#E6F2E4" stroke-width="4" stroke-dasharray="1 10" stroke-linecap="round" fill="none" opacity="0.85"></path>
+</svg>
+</sc-if>
+
+<sc-if value="{{grid}}" hint-placeholder-val="{{false}}">
+<svg viewBox="0 0 256 222" style="position: absolute; left: 0; top: 0; display: block; width: {{w}}px; height: {{h}}px" aria-hidden="true">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="none" stroke="#3B2A20" stroke-opacity="0.16" stroke-width="2"></polygon>
+</svg>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["coast","grassland","forest","marsh","mountains","water"],"default":"grassland"},"size":{"editor":"int","default":256,"min":32,"max":512,"unit":"px"},"grid":{"editor":"boolean","default":false},"$preview":{"width":256,"height":222}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const kind = this.props.kind ?? 'grassland';
+    const w = Number(this.props.size ?? 256);
+    return {
+      w, h: Math.round(w * 222 / 256 * 100) / 100,
+      grid: !!this.props.grid,
+      is: {
+        coast: kind === 'coast', grassland: kind === 'grassland', forest: kind === 'forest',
+        marsh: kind === 'marsh', mountains: kind === 'mountains', water: kind === 'water'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
