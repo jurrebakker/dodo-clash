@@ -40,3 +40,6 @@ pgdata/
 # OS
 .DS_Store
 Thumbs.db
+
+# Prompts for generating assets: local only
+prompts/

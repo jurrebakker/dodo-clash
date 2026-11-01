@@ -12,7 +12,7 @@ of Mauritius (1598) against introduced species. Hobby project, English only.
 | [GAMERULES.md](GAMERULES.md), [WORLD.md](WORLD.md) | Notes on the reference game (Blight of the Immortals). Genre reference only, never copy it |
 | [TECH_RESEARCH.md](TECH_RESEARCH.md) | Background research behind the stack. §4–§5 are partly superseded by §6 |
 | [assets/README.md](assets/README.md) | Placeholder art: folders, sizes, how to re-export PNGs from `assets/source/` |
-| `prompts/` | Prompts used to generate assets with Claude Design |
+| `prompts/` | Local only, git-ignored: prompts used to generate assets with Claude Design |
 | `reference/` | Local only, git-ignored: screenshots of the reference game. Not in the public repo |
 
 If a decision isn't in DESIGN.md or ARCHITECTURE.md, it hasn't been made: ask before assuming.
