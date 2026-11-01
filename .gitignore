@@ -1,0 +1,42 @@
+# Reference material of another game: local only, never in the public repo
+reference/
+
+# .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+TestResults/
+*.binlog
+publish/
+# The client build is copied here by the Dockerfile
+server/DodoClash.Server/wwwroot/
+
+# Node / client
+node_modules/
+client/dist/
+*.tsbuildinfo
+.vite/
+test-results/
+playwright-report/
+coverage/
+*.log
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+.claude/settings.local.json
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Operations
+backups/
+pgdata/
+
+# OS
+.DS_Store
+Thumbs.db

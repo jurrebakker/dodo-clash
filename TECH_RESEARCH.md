@@ -86,6 +86,10 @@ Takeaway: for **turn-based** hex games, the choice of rendering library matters 
 
 ## 4. Recommendation
 
+> Superseded by [§6](#6-update-2026-11-01-net-server-thin-client): the game logic moved to a .NET
+> server, the client has no `core/`, there are no turns or ticks, and tests use xUnit. We also write
+> our own hex module instead of using Honeycomb. The client side (Vite, PixiJS map, HTML panels) still holds.
+
 **Option A: TypeScript + Vite + PixiJS (map) + HTML/CSS (UI)**, set up in three layers:
 
 ```
@@ -105,13 +109,52 @@ Why:
   without being a full engine.
 - **`core/` stays separate from everything else**, so the single-player version can grow into co-op later.
 - **Testing** with Vitest on `core/` (combat formulas, movement, den spawning).
-- **Hosting:** single player needs no server. Static hosting such as GitHub Pages, Netlify or
-  Cloudflare Pages is enough. Saves can go in `localStorage`.
+- **Hosting:** ~~single player needs no server; static hosting and `localStorage` saves.~~
+  Superseded on 2026-11-01, see [§5](#5-update-2026-11-01-co-op-over-an-office-week).
 
 Choose **B (Phaser)** instead if you'd rather have more built in (scenes, sound, tweens)
 and don't mind tying the game to an engine.
 
 Check the exact package versions when we set the project up.
+
+---
+
+## 5. Update 2026-11-01: co-op over an office week
+
+> Superseded by [§6](#6-update-2026-11-01-net-server-thin-client): there is no shared `core/`,
+> no ticks (snapshots are hourly), login uses a cookie instead of a browser token, and practice
+> mode runs on the server instead of as a static site. Postgres, SSE and Docker still hold.
+
+The game changed from single player with turns to **co-op for 2–6 colleagues over one office
+week**, with a clock that only runs during active hours (see [DESIGN.md](DESIGN.md) §3 and §11).
+Option A still holds for the client, but a server is now needed.
+
+```
+core/      pure game logic, shared by client and server; deterministic (seeded RNG in the state)
+client/    Vite + PixiJS map + HTML/CSS UI; also runs core/ locally for the practice mode
+server/    HTTP API + server-sent events ("a new tick happened"); runs ticks in the background
+data/      JSON: maps, clans, allies, invaders, heroes; copied into a match when it starts
+```
+
+- **Communication:** HTTP for orders and state, **SSE** for tick updates. No WebSockets: ticks
+  are ~10 real minutes apart.
+- **Storage:** **Postgres**. Per match an **order log** and a **state snapshot per tick**, so any
+  moment can be replayed and an admin can roll back. The state has a schema version and migrations.
+- **Deployment:** one **Docker** image serving client and server. docker compose (with Postgres)
+  for local testing, and a server at work for real matches.
+- **Login:** invite link + browser token first, company SSO later.
+- **Practice mode:** the client can also be built as a static site without a server (milestone 3).
+
+---
+
+## 6. Update 2026-11-01: .NET server, thin client
+
+§5's shared TypeScript `core/` is **superseded**. The server is written in **.NET 10** and is
+the only place the game rules live. The browser is a thin TypeScript shell (Vite + React 19 +
+PixiJS) that draws the state and calls endpoints; practice mode and route previews run on the
+server too. Ticks are replaced by a continuous clock counted in island minutes, so orders take
+effect immediately and units can meet mid-edge, as in Blight. The full set of decisions is in
+[ARCHITECTURE.md](ARCHITECTURE.md).
 
 ---
 

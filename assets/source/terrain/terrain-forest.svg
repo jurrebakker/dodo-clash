@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="222" viewBox="0 0 256 222">
+<polygon points="64,0 192,0 256,111 192,222 64,222 0,111" fill="#3F6E3D"></polygon>
+<g stroke="#2C4E2A" stroke-width="3">
+<circle cx="128" cy="42" r="24" fill="#4E8447"></circle>
+<circle cx="72" cy="66" r="24" fill="#4E8447"></circle>
+<circle cx="184" cy="66" r="24" fill="#4E8447"></circle>
+<circle cx="102" cy="108" r="25" fill="#4E8447"></circle>
+<circle cx="160" cy="110" r="25" fill="#4E8447"></circle>
+<circle cx="70" cy="156" r="24" fill="#4E8447"></circle>
+<circle cx="190" cy="154" r="24" fill="#4E8447"></circle>
+<circle cx="130" cy="168" r="25" fill="#4E8447"></circle>
+</g>
+<g fill="#6A9E5A">
+<circle cx="121" cy="35" r="10"></circle>
+<circle cx="65" cy="59" r="10"></circle>
+<circle cx="177" cy="59" r="10"></circle>
+<circle cx="95" cy="101" r="10"></circle>
+<circle cx="153" cy="103" r="10"></circle>
+<circle cx="63" cy="149" r="10"></circle>
+<circle cx="183" cy="147" r="10"></circle>
+<circle cx="123" cy="161" r="10"></circle>
+</g>
+</svg>
