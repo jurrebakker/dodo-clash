@@ -117,6 +117,8 @@ Check the exact package versions when we set the project up.
 
 ## 5. Update 2026-11-01: co-op over an office week
 
+> The shared `core/` and the ticks in this section are superseded by [§6](#6-update-2026-11-01-net-server-thin-client).
+
 The game changed from single player with turns to **co-op for 2–6 colleagues over one office
 week**, with a clock that only runs during active hours (see [DESIGN.md](DESIGN.md) §3 and §11).
 Option A still holds for the client, but a server is now needed.
@@ -136,6 +138,17 @@ data/      JSON: maps, clans, allies, invaders, heroes; copied into a match when
   for local testing, and a server at work for real matches.
 - **Login:** invite link + browser token first, company SSO later.
 - **Practice mode:** the client can also be built as a static site without a server (milestone 3).
+
+---
+
+## 6. Update 2026-11-01: .NET server, thin client
+
+§5's shared TypeScript `core/` is **superseded**. The server is written in **.NET 10** and is
+the only place the game rules live. The browser is a thin TypeScript shell (Vite + React 19 +
+PixiJS) that draws the state and calls endpoints; practice mode and route previews run on the
+server too. Ticks are replaced by a continuous clock counted in island minutes, so orders take
+effect immediately and units can meet mid-edge, as in Blight. The full set of decisions is in
+[ARCHITECTURE.md](ARCHITECTURE.md).
 
 ---
 

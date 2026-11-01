@@ -50,7 +50,8 @@ setting, its own way of spreading the threat, its own economy and its own number
 - Based on the real geography of Mauritius. The MVP uses the **whole island**.
 - **Terrain** is drawn on **hexes**. **Movement** uses a separate **triangular waypoint grid**
   on top of the hexes, like the reference. One edge between two waypoints is one **stride**.
-  Units move along edges and can stop on any waypoint, also in open country.
+  Units move along edges and can stop on any waypoint, also in open country. Enemies can also
+  meet **halfway along an edge**; the battle and its survivors then stand on that spot (§8).
 - The **move cost of an edge** comes from the terrain of the hex that the **edge's midpoint**
   lies in. Footpaths are an attribute of an edge, not of a hex.
 - **Terrain:**
@@ -93,14 +94,12 @@ setting, its own way of spreading the threat, its own economy and its own number
 - **Length:** a match lasts **5 active workdays**, about **10 island days**. That makes
   1 island hour ≈ 10 real minutes. The speed is the same in every match: starting on a
   Wednesday means ending on the next Wednesday (or earlier if you win).
-- **Ticks:** the server simulates in ticks of **1 island hour**. Each tick:
-  1. move,
-  2. resolve battles,
-  3. dens breed,
-  4. once per island day: Fruit and eggs.
-  Anyone who reaches a battle within the same tick joins it as reinforcement.
+- **No ticks:** time is continuous, counted in **island minutes** (1 island minute = 10 real seconds).
+  **Orders take effect immediately**: a flock leaves the moment you send it. Movement, contact and
+  battles happen at the exact minute they occur. Dens breed on every island hour, and Fruit and
+  eggs arrive once per island day. See [ARCHITECTURE.md §2](ARCHITECTURE.md#2-time-model-continuous-no-ticks).
 - The "jump less time and pay for it" mechanic from the reference is **dropped**.
-- **Practice mode:** the same rules, run locally in the browser with no server, an accelerated
+- **Practice mode:** the same rules, on the server, as a one-player match with an accelerated
   clock, "skip 1 day" and reset. It's a developer and balancing tool first, and later the tutorial.
 
 ---
@@ -206,7 +205,7 @@ This replaces the reference's "bodies rise up as zombies".
 
 1. An invader that **plunders** a colony eats eggs and dodos.
 2. Each kind of invader builds a **den** nearby (a pig wallow, a rat nest, a dog lair).
-3. A den **breeds new invaders** every tick. The more it has eaten, the faster it breeds.
+3. A den **breeds new invaders** every island hour. The more it has eaten, the faster it breeds.
 4. **Destroying a den:** move a flock onto it, or win a battle there.
    A den you leave alone keeps growing until it becomes a **nest of the plague**.
 5. **Ships** follow a **fixed, finite schedule** per scenario (day, harbour, species, count),
@@ -266,9 +265,11 @@ This replaces the reference's "bodies rise up as zombies".
 
 ## 8. Combat
 
-- Combat starts when flocks and invaders meet on a waypoint or at a location.
-  The battle is resolved **at the end of the tick**, so reinforcements can still join that tick.
-- **All dodo flocks on a waypoint fight as one side**, whichever players they belong to.
+- Combat starts at **contact**: when flocks and invaders meet at a waypoint or location, cross
+  each other on an edge, overtake each other, or one walks onto an edge where the other stands.
+  Both sides are **pinned** on that spot, and the battle is resolved **1 island hour after contact**.
+  Anyone who reaches the spot during that hour joins it as reinforcement.
+- **All dodo flocks in a battle fight as one side**, whichever players they belong to.
 - **Strength = number × individual strength** (plus terrain, hero modifier and nest defence).
 - **Outcome:** the stronger side wins. Losses follow a **saving throw** based on how the
   two sides' strengths compare.
@@ -358,14 +359,15 @@ without code changes.
   Share the **invite link**. Players join the lobby. At the start time the clock starts.
   Default start: Monday 09:00.
 - The server can run **several matches** at the same time.
-- **Login:** no accounts. You open the invite link, pick a name, and a token is stored in your
-  browser. Company SSO comes later.
+- **Login:** no accounts. You open the invite link, pick a name, and the server sets a cookie in
+  your browser. Company SSO comes later.
 - **Rule values are frozen per match:** the `data/` numbers are copied into the match when it
   starts. Rule and balance changes only reach new matches.
 - **Bug fixes** may be deployed during the week. The stored state has a **schema version** and
   migrations.
-- **Rollback:** because the game is deterministic and every tick is stored, the server admin
-  can roll a match back to an earlier tick with a CLI command. The match creator only has pause.
+- **Rollback:** because the game is deterministic and the server stores an hourly snapshot plus
+  every order, the server admin can roll a match back to an earlier moment through the admin
+  endpoints. The match creator only has pause.
 
 ---
 
@@ -381,32 +383,33 @@ without code changes.
 
 ### 12.2 Milestones (each one playable)
 1. **Core + practice mode:** a small test map, generated waypoint grid, one flock, moving,
-   the clock running. Everything in the browser.
+   the clock running. A minimal server with one in-memory practice match, and a browser that draws it.
 2. **Battles and invaders:** dens, ships, invader behaviour, the square law, fleeing,
    colonies falling. A full solo match in practice mode on a small map.
 3. **Economy:** Fruit, eggs, training, Courage, the tortoise, wild colonies.
-   Then put the practice mode online as a **static build** and collect feedback from colleagues.
+   Then deploy the Docker image with practice mode and collect feedback from colleagues.
 4. **The real Mauritius map** + 4 clans + balancing with **headless simulations**
    (a whole week in seconds, with simple bot players).
-5. **Server:** Postgres, Docker, ticks in the background, invite links, lobby, inbox, SSE.
+5. **Real matches:** Postgres, snapshots and order log, invite links, lobby, inbox, admin.
 6. **First test week with colleagues**, then the leaderboard and polish.
 
-Multiplayer only arrives in milestone 5, but the game logic is designed for it from day 1:
-several players, a continuous clock and determinism.
+Multiplayer only arrives in milestone 5, but the server runs the game from day 1 and the
+game logic is designed for it: several players, a continuous clock and determinism.
 
 ### 12.3 Decided
 - **Purpose:** a hobby game to play with colleagues (all software developers) during breaks.
   One match per week.
 - **Mode:** **co-op** with personal leaderboard categories. 2–6 players.
-- **Time:** a continuous clock that only runs during each match's active hours. 1-island-hour ticks.
+- **Time:** a continuous clock that only runs during each match's active hours. No ticks:
+  orders take effect immediately, and units can meet mid-edge.
 - **Art style:** **cute and hand-drawn**, placeholders first.
 - **Heroes:** **no playable hero characters.** One match hero gives a static modifier.
   The first hero has none, and later heroes have trade-offs (§4.3).
-- **Technology:** a **TypeScript monorepo**: `core/` (pure game logic, shared), `client/`
-  (Vite + PixiJS map + HTML/CSS UI) and `server/` (HTTP API + server-sent events, running the
-  same `core/`). **Postgres** stores an order log and a state snapshot per tick. One
-  **Docker** image serves client and server; it runs locally in docker compose for testing
-  and on a server at work. Vitest for tests. Background in [TECH_RESEARCH.md](TECH_RESEARCH.md).
+- **Technology:** an authoritative **.NET 10** server that holds all game logic, and a thin
+  **TypeScript** client (Vite + React 19 panels + PixiJS map) without any rules. HTTP for
+  commands, server-sent events for updates. **Postgres** stores an order log and hourly
+  snapshots. One **Docker** image serves client and server. Details in
+  [ARCHITECTURE.md](ARCHITECTURE.md), background in [TECH_RESEARCH.md](TECH_RESEARCH.md).
 - **Language:** **English only.** No translation system.
 - **History:** **inspired by history.** The real island, the real species and the real order in which
   the invaders arrived (Dutch sailors in 1598, then pigs, rats, macaques…) form the backbone of the
