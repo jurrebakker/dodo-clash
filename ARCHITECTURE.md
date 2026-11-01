@@ -12,6 +12,8 @@ Decided 2026-11-01 in a design grilling session. The game itself is described in
 - **The browser is a shell.** It draws the state the server sends and calls endpoints to try to
   change it. It contains **no game rules**: no movement, no combat, no pathfinding.
 - Practice mode, route previews and headless balancing all run on the server side too.
+- Terminology: a **command** is what [DESIGN.md](DESIGN.md) calls an **order** (move, train, merge…),
+  and the server keeps a **command log**.
 
 ```
 server/
@@ -35,6 +37,11 @@ assets/                    art, see assets/README.md
 | Tests | xUnit (+ Testcontainers from M5), one Playwright smoke test from M5 |
 | Deployment | One Docker image (server + client), docker compose with Postgres on a server at work |
 | Repo / CI | GitHub (`jurrebakker/dodo-clash`), GitHub Actions |
+
+**Considered and rejected:** a TypeScript server with a `core/` shared with the browser (see
+[TECH_RESEARCH.md §5](TECH_RESEARCH.md#5-update-2026-11-01-co-op-over-an-office-week)), hourly ticks,
+SignalR, multiple server instances with `SKIP LOCKED`, Preact, `@pixi/react`, `pixi-viewport`,
+Honeycomb, NodaTime, .NET Aspire, Serilog and OpenTelemetry.
 
 ---
 
@@ -73,8 +80,8 @@ assets/                    art, see assets/README.md
 ### 2.2 Clock and active hours
 
 - A match stores `GameMinute` and `LastAdvancedAt` (real time). Active time only accumulates
-  **while the server is running**, so downtime behaves like a pause: a deploy never causes a burst
-  of catch-up battles. On startup `LastAdvancedAt` is reset to "now".
+  **while the server is running**, so downtime behaves like a pause. A deploy never causes a burst
+  of catch-up battles. (One way to do this: reset `LastAdvancedAt` to "now" on startup.)
 - The active-hours calendar is a pure, heavily tested function:
   `ActiveMinutesBetween(from, to, schedule)`, using `TimeZoneInfo` with IANA IDs
   (`Europe/Amsterdam`), including DST changes.
@@ -131,21 +138,27 @@ Exact replay is a **server-side** guarantee (the client runs no rules).
 
 ### 4.2 API
 
+The agreed endpoints are `route-preview`, the practice and admin endpoints, `/join/{code}`, one
+SSE stream and commands as POSTs. The other names, the response codes and the command names
+below are a **starting proposal** for M1, not settled decisions.
+
 | Endpoint | Purpose |
 |---|---|
 | `GET /api/matches/{id}/map` | Static map data, fetched once: hexes, waypoints, edges, edge durations, locations |
 | `GET /api/matches/{id}/state` | Full dynamic state (also sent over SSE) |
 | `GET /api/matches/{id}/events` | SSE: full dynamic state on every change, plus events (contact, battle, inbox) |
-| `POST /api/matches/{id}/commands` | One command; a `[JsonPolymorphic]` union with a `"type"` discriminator (`move`, `train`, `merge`, `split`, …). 200 = accepted, 422 = rejected with a reason |
+| `POST /api/matches/{id}/commands` | One command, e.g. `move`, `train`, `merge` or `split`. 200 = accepted, 422 = rejected with a reason |
 | `POST /api/matches/{id}/route-preview` | `{unitId, via[]}` → `{path, minutes}`. Drives route lines and travel-time labels |
 | `POST /api/matches/{id}/practice/{skip-day,reset,set-speed}` | Practice matches only; 403 on real matches |
 | `/api/admin/...` | `pause`, `rollback?toMinute=`, `inspect`; protected by an admin key from configuration |
 | `/join/{code}` | Invite link: pick a name, get a player cookie |
 
+- Commands are a `[JsonPolymorphic]` union with a `"type"` discriminator.
 - **Identity:** joining sets an **HttpOnly cookie** scoped to the match (`EventSource` can't send
-  headers, and tokens never go in URLs). Company SSO later.
+  headers, and tokens never go in URLs). Company SSO: *Not in the MVP.*
 - **Rollback / admin** goes through the admin endpoints of the running server, never directly
-  to the database (the in-memory match would overwrite it). A tiny CLI may wrap them.
+  to the database (the in-memory match would overwrite it). A tiny CLI that wraps them:
+  *Not in the MVP* (`curl` is enough).
 
 ### 4.3 Persistence
 
@@ -180,14 +193,14 @@ scope (`matchId`, `gameMinute`). No Serilog or OpenTelemetry for now.
   That is drawing, not rules: if the next update disagrees, the token snaps.
 - **Route previews** come from the `route-preview` endpoint, debounced ~100 ms on hover.
 - **Pan and zoom** are our own (~150 lines): wheel zoom toward the cursor, drag to pan, WASD, clamped to 25–200%.
-- **Terrain** is drawn once into chunks of 16×16 hexes with Pixi v8 `cacheAsTexture`. Hard edges
+- **Terrain** is drawn once into chunks (for example 16×16 hexes) with Pixi v8 `cacheAsTexture`. Hard edges
   between hex tiles stay until the final art solves them with transition overlays.
 - **Layers**, bottom to top: terrain chunks → footpaths → waypoint lattice → locations → routes →
   tokens → markers/labels → hover/selection.
 - **Assets:** individual PNGs loaded through a generated manifest. Pixi's AssetPack (atlases +
-  mipmaps) comes when the final art arrives; file names stay the same.
-- **Types** for state and commands are generated from the server's OpenAPI document
-  (`npm run gen:api`) and committed. CI fails if they are stale.
+  mipmaps): *Not in the MVP*, it comes with the final art. File names stay the same.
+- **Types** for state and commands are generated from the server's OpenAPI document by an npm
+  script and committed. CI fails if they are stale.
 
 ---
 
@@ -223,11 +236,12 @@ The game milestones are in [DESIGN.md §12.2](DESIGN.md#122-milestones-each-one-
 
 1. **M1:** Core (map, waypoint graph, continuous movement, contact) + tests, a minimal ASP.NET app
    with one in-memory practice match, and a client that draws the map and moves one flock.
-2. **M2–M3:** battles, invaders, economy, all in memory. M3 ends with deploying the Docker image
-   so colleagues can try practice mode.
-3. **M4:** the real map, balancing with `DodoClash.Sim`.
-4. **M5:** Postgres, snapshots and command log, migrations, lobby, invite links, cookies, inbox,
+2. **M2:** battles and invader AI in Core, still in memory.
+3. **M3:** the economy in Core. Ends with deploying the Docker image so colleagues can try practice mode.
+4. **M4:** the real map, and the `DodoClash.Sim` project for balancing.
+5. **M5:** Postgres, snapshots and command log, migrations, lobby, invite links, cookies, inbox,
    admin endpoints, integration and smoke tests.
+6. **M6:** nothing new in the architecture. Run the first test week and fix what it shows.
 
 ---
 

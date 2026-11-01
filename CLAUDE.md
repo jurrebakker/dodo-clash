@@ -27,12 +27,11 @@ Update this section and add build/test commands once the projects exist.
 
 - **The server is the game.** All rules live in `server/DodoClash.Core`. The client (`client/`)
   only draws state and calls endpoints. No movement, combat or pathfinding in TypeScript.
-- **`DodoClash.Core` has no I/O and no dependencies**, and must stay deterministic: no
-  `DateTime.Now`, `System.Random`, `Guid.NewGuid`, `Math.Pow`/trig, or `float`. Use the PCG32
-  in the state, ID counters, and iterate dictionaries sorted by ID when order matters.
-- Game time is **integer island minutes**; no ticks. Balance numbers come from `data/` via the
-  `Rules` parameter, never constants in code.
-- Game state is plain mutable POCOs keyed by string ID; logic lives in static functions.
+- **`DodoClash.Core` has no I/O and no dependencies**, and must stay deterministic. Follow the
+  banned-API list and rules in ARCHITECTURE.md §3.1.
+- Game time is integer island minutes, with no ticks (ARCHITECTURE.md §2). Balance numbers come
+  from `data/` via the `Rules` parameter, never constants in code.
+- Game state is plain mutable POCOs keyed by ID; logic lives in static functions.
 - `client/src/api/types.ts` is generated from the server's OpenAPI document. Don't edit it by hand.
 - Art follows the sizes and names in DESIGN.md §10.1 (`assets/<atlas>/<kind>-<name>.png`).
 - Don't copy names, text, art or numbers from the reference game (DESIGN.md §13).

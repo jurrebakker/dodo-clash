@@ -86,6 +86,10 @@ Takeaway: for **turn-based** hex games, the choice of rendering library matters 
 
 ## 4. Recommendation
 
+> Superseded by [§6](#6-update-2026-11-01-net-server-thin-client): the game logic moved to a .NET
+> server, the client has no `core/`, there are no turns or ticks, and tests use xUnit. We also write
+> our own hex module instead of using Honeycomb. The client side (Vite, PixiJS map, HTML panels) still holds.
+
 **Option A: TypeScript + Vite + PixiJS (map) + HTML/CSS (UI)**, set up in three layers:
 
 ```
@@ -117,7 +121,9 @@ Check the exact package versions when we set the project up.
 
 ## 5. Update 2026-11-01: co-op over an office week
 
-> The shared `core/` and the ticks in this section are superseded by [§6](#6-update-2026-11-01-net-server-thin-client).
+> Superseded by [§6](#6-update-2026-11-01-net-server-thin-client): there is no shared `core/`,
+> no ticks (snapshots are hourly), login uses a cookie instead of a browser token, and practice
+> mode runs on the server instead of as a static site. Postgres, SSE and Docker still hold.
 
 The game changed from single player with turns to **co-op for 2–6 colleagues over one office
 week**, with a clock that only runs during active hours (see [DESIGN.md](DESIGN.md) §3 and §11).

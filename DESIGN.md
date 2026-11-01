@@ -268,7 +268,9 @@ This replaces the reference's "bodies rise up as zombies".
 - Combat starts at **contact**: when flocks and invaders meet at a waypoint or location, cross
   each other on an edge, overtake each other, or one walks onto an edge where the other stands.
   Both sides are **pinned** on that spot, and the battle is resolved **1 island hour after contact**.
-  Anyone who reaches the spot during that hour joins it as reinforcement.
+  Anyone who reaches the spot during that hour joins it as reinforcement. A pinned flock can be
+  given a new order, but it only starts moving after the battle. Technical details in
+  [ARCHITECTURE.md §2.1](ARCHITECTURE.md#21-positions-contact-and-battles).
 - **All dodo flocks in a battle fight as one side**, whichever players they belong to.
 - **Strength = number × individual strength** (plus terrain, hero modifier and nest defence).
 - **Outcome:** the stronger side wins. Losses follow a **saving throw** based on how the
@@ -309,8 +311,10 @@ This is a special invader with an effect on the whole map:
 - The map uses tokens with portraits. The number on a token is total strength.
   Dodo tokens have green frames (with a player colour) and invader tokens red ones.
 - **Orders:** click a flock, pick a destination, and the route is planned automatically
-  (adjustable with extra waypoints). Orders can be changed at any moment, and a flock
-  halfway along an edge can turn around. Merging and splitting only happen on a waypoint.
+  (adjustable with extra waypoints). Orders take effect immediately and can be changed at any
+  moment, except that a flock pinned in a battle only moves after the battle (§8). A flock
+  halfway along an edge can turn around, but you can't order it to stop mid-edge.
+  Merging and splitting only happen on a waypoint.
 - Panels: a **colony panel** (population, eggs, Fruit, train), a **flock panel**
   (move, merge, split, ability), a **den panel** (species, breeding speed), a **battle report**.
 - **Inbox:** battle reports and warnings ("colony under attack"). It's the only notification
@@ -361,13 +365,14 @@ without code changes.
 - The server can run **several matches** at the same time.
 - **Login:** no accounts. You open the invite link, pick a name, and the server sets a cookie in
   your browser. Company SSO comes later.
-- **Rule values are frozen per match:** the `data/` numbers are copied into the match when it
-  starts. Rule and balance changes only reach new matches.
+- **Rule values are frozen per match:** the `data/` numbers and the map are copied into the match
+  when it is created. Rule and balance changes only reach new matches.
 - **Bug fixes** may be deployed during the week. The stored state has a **schema version** and
   migrations.
 - **Rollback:** because the game is deterministic and the server stores an hourly snapshot plus
-  every order, the server admin can roll a match back to an earlier moment through the admin
-  endpoints. The match creator only has pause.
+  a log of every command (order), the server admin can roll a match back to an earlier moment
+  through the admin endpoints. The match creator only has pause.
+- How the server, storage and client work: [ARCHITECTURE.md §4](ARCHITECTURE.md#4-server).
 
 ---
 
@@ -390,11 +395,12 @@ without code changes.
    Then deploy the Docker image with practice mode and collect feedback from colleagues.
 4. **The real Mauritius map** + 4 clans + balancing with **headless simulations**
    (a whole week in seconds, with simple bot players).
-5. **Real matches:** Postgres, snapshots and order log, invite links, lobby, inbox, admin.
+5. **Real matches:** Postgres, snapshots and command log, invite links, lobby, inbox, admin.
 6. **First test week with colleagues**, then the leaderboard and polish.
 
 Multiplayer only arrives in milestone 5, but the server runs the game from day 1 and the
 game logic is designed for it: several players, a continuous clock and determinism.
+The technical side of each milestone is in [ARCHITECTURE.md §8](ARCHITECTURE.md#8-milestones-technical-view).
 
 ### 12.3 Decided
 - **Purpose:** a hobby game to play with colleagues (all software developers) during breaks.
@@ -407,7 +413,7 @@ game logic is designed for it: several players, a continuous clock and determini
   The first hero has none, and later heroes have trade-offs (§4.3).
 - **Technology:** an authoritative **.NET 10** server that holds all game logic, and a thin
   **TypeScript** client (Vite + React 19 panels + PixiJS map) without any rules. HTTP for
-  commands, server-sent events for updates. **Postgres** stores an order log and hourly
+  commands, server-sent events for updates. **Postgres** stores a command log and hourly
   snapshots. One **Docker** image serves client and server. Details in
   [ARCHITECTURE.md](ARCHITECTURE.md), background in [TECH_RESEARCH.md](TECH_RESEARCH.md).
 - **Language:** **English only.** No translation system.

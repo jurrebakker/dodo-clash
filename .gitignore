@@ -9,12 +9,19 @@ obj/
 *.suo
 TestResults/
 *.binlog
+publish/
+# The client build is copied here by the Dockerfile
+server/DodoClash.Server/wwwroot/
 
 # Node / client
 node_modules/
 client/dist/
 *.tsbuildinfo
 .vite/
+test-results/
+playwright-report/
+coverage/
+*.log
 
 # Local configuration and secrets
 .env
