@@ -105,13 +105,37 @@ Why:
   without being a full engine.
 - **`core/` stays separate from everything else**, so the single-player version can grow into co-op later.
 - **Testing** with Vitest on `core/` (combat formulas, movement, den spawning).
-- **Hosting:** single player needs no server. Static hosting such as GitHub Pages, Netlify or
-  Cloudflare Pages is enough. Saves can go in `localStorage`.
+- **Hosting:** ~~single player needs no server; static hosting and `localStorage` saves.~~
+  Superseded on 2026-11-01, see [§5](#5-update-2026-11-01-co-op-over-an-office-week).
 
 Choose **B (Phaser)** instead if you'd rather have more built in (scenes, sound, tweens)
 and don't mind tying the game to an engine.
 
 Check the exact package versions when we set the project up.
+
+---
+
+## 5. Update 2026-11-01: co-op over an office week
+
+The game changed from single player with turns to **co-op for 2–6 colleagues over one office
+week**, with a clock that only runs during active hours (see [DESIGN.md](DESIGN.md) §3 and §11).
+Option A still holds for the client, but a server is now needed.
+
+```
+core/      pure game logic, shared by client and server; deterministic (seeded RNG in the state)
+client/    Vite + PixiJS map + HTML/CSS UI; also runs core/ locally for the practice mode
+server/    HTTP API + server-sent events ("a new tick happened"); runs ticks in the background
+data/      JSON: maps, clans, allies, invaders, heroes; copied into a match when it starts
+```
+
+- **Communication:** HTTP for orders and state, **SSE** for tick updates. No WebSockets: ticks
+  are ~10 real minutes apart.
+- **Storage:** **Postgres**. Per match an **order log** and a **state snapshot per tick**, so any
+  moment can be replayed and an admin can roll back. The state has a schema version and migrations.
+- **Deployment:** one **Docker** image serving client and server. docker compose (with Postgres)
+  for local testing, and a server at work for real matches.
+- **Login:** invite link + browser token first, company SSO later.
+- **Practice mode:** the client can also be built as a static site without a server (milestone 3).
 
 ---
 

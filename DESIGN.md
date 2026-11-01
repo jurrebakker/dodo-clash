@@ -1,13 +1,14 @@
-# Dodo Clash: Game Design (draft v0.1)
+# Dodo Clash: Game Design (draft v0.2)
 
 > *Mauritius, 1598. For a million years the dodo had no enemies. Then the ships came.*
 
-Dodo Clash is a browser strategy game. You lead the birds of Mauritius against
-the animals that people brought to the island. Blight of the Immortals is our reference
-for the overall **genre** (see [GAMERULES.md](GAMERULES.md)): a slow-paced map
-strategy game where a threat spreads and you contain it. But Dodo Clash has its own
+Dodo Clash is a co-op browser strategy game for a small group of colleagues. Together you
+lead the birds of Mauritius against the animals that people brought to the island. One
+match lasts **one office week** and is played in short breaks. Blight of the Immortals is
+our reference for the overall **genre** (see [GAMERULES.md](GAMERULES.md)): a slow-paced
+map strategy game where a threat spreads and you contain it. But Dodo Clash has its own
 setting, its own way of spreading the threat, its own economy and its own numbers. See
-[§12 What we deliberately do differently](#12-what-we-deliberately-do-differently).
+[§13 What we deliberately do differently](#13-what-we-deliberately-do-differently).
 
 ---
 
@@ -16,26 +17,42 @@ setting, its own way of spreading the threat, its own economy and its own number
 - **Setting:** Mauritius around 1600, a volcanic island with no natural predators.
   Ships drop off sailors, dogs, pigs, cats, rats and macaques. Each one threatens
   the dodo in its own way.
-- **The player** controls the **dodos** and their allies among the island's native animals.
+- **The players** (2–6) each control a group of **dodos** and their allies among the
+  island's native animals. They all play on the same side.
 - **The enemy** is the **Invaders**: the introduced species, spreading out from where the ships land.
-- **Goal:** survive. Push the invaders back, destroy their **dens** and keep as many
+- **Goal:** survive the week. Push the invaders back, destroy their **dens** and keep as many
   dodos alive as possible.
 - **Tone:** light and a bit funny on the surface (a clumsy bird fighting back),
   with a melancholy layer underneath, because in reality the dodo was extinct by about 1662.
   The game asks: *what if they had fought back?*
 
 ### Win, lose and score
-- **Win:** every invader on the island is defeated **and** every den is destroyed.
-- **Lose:** every dodo colony has fallen.
-- **Score:** the share of the starting dodo population that is still alive. Grading:
-  *Extinct → Endangered → Vulnerable → Thriving*.
+- **Win (early):** every invader on the island is defeated **and** every den is destroyed,
+  after the ship schedule has finished (or every remaining wave is blockaded, see §6.2).
+- **End of the week:** if nobody has won by the deadline, the match ends anyway and is scored.
+- **Lose:** every colony on the team has fallen and no new colony was won over during the
+  **grace period** (see §7.4). The grade is then *Extinct*.
+- **Team score:** the share of the starting dodo population that is still alive, counting
+  dodos in colonies **and** in flocks. Grading: *Extinct → Endangered → Vulnerable → Thriving*.
+- **Personal categories** (shown at the end, each with its own winner):
+
+| Category | Measured as |
+|---|---|
+| 🐣 Most dodos saved | % of your own starting population still alive |
+| 🔥 Most dens destroyed | dens your flocks destroyed |
+| ⚔️ Most invaders defeated | invaders defeated, split by contributed strength |
+| 🤝 Most help | strength contributed to battles at other players' colonies |
 
 ---
 
 ## 2. The island (map)
 
-- Based on the real geography of Mauritius, simplified to a hex map with
-  a **waypoint grid** for movement. One step on the grid is one **stride**.
+- Based on the real geography of Mauritius. The MVP uses the **whole island**.
+- **Terrain** is drawn on **hexes**. **Movement** uses a separate **triangular waypoint grid**
+  on top of the hexes, like the reference. One edge between two waypoints is one **stride**.
+  Units move along edges and can stop on any waypoint, also in open country.
+- The **move cost of an edge** comes from the terrain of the hex that the **edge's midpoint**
+  lies in. Footpaths are an attribute of an edge, not of a hex.
 - **Terrain:**
 
 | Terrain | Real-world inspiration | Move cost |
@@ -45,28 +62,46 @@ setting, its own way of spreading the threat, its own economy and its own number
 | Ebony forest | the original rainforest | 1.5x |
 | Marsh | Mare aux Songes (where the most dodo bones have been found) | 2x |
 | Mountains | Le Pouce, Black River Gorges | 2x |
-| Footpath | trampled animal trails | 0.75x (faster) |
+| Footpath (edge) | trampled animal trails | 0.75x (faster) |
 | Water | lagoon, reef, rivers | impassable (except for flyers) |
 
-- **Map locations:**
+- **Map locations** (each sits on one waypoint):
   - **Colonies:** dodo nesting grounds. They produce food and can train new flocks.
+  - **Starting positions:** the map has **6**. Four lie on the home terrains of the four
+    clans, two in mixed terrain. A position nobody takes becomes a **wild colony** (§7.2).
   - **Ally settlements:** homes of other native species (see §4).
   - **Freshwater springs:** produce **Spirit** (see §5). If invaders take one,
-    a **Plague** event starts (see §7).
+    a **Plague** event starts (see §9). *Not in the MVP.*
   - **Harbours:** where ships land. New invaders come ashore here.
     Harbours can't be captured, only **blockaded**.
   - **Dens:** places where invaders breed (see §6).
+  - **Ruins:** colonies that have fallen. They stay ruins for good.
+- **Map file:** terrain as an ASCII grid (one letter per hex) plus a JSON list of locations.
+  The waypoint grid is **generated** from it: a regular triangular lattice over the map, with
+  edges over water removed. Locations snap to the nearest waypoint.
 
 ---
 
 ## 3. Time
 
-- **Single player:** turn-based. One turn is **4 hours** on the island. A **day** is
-  6 turns, and food is counted per day.
-- *Option for later:* asynchronous co-op, where several players each defend a part of the
-  island and the clock runs slowly in real time.
+- **One shared clock** per match, running continuously. No turns and no End Turn button.
+- The clock only runs during the match's **active hours**. Whoever creates the match sets them:
+  active weekdays, active hours and a timezone. Default: **Mon–Fri, 09:00–17:30, Europe/Amsterdam**.
+  Outside those hours nothing moves, breeds or fights. Nobody needs to get up at night to save a colony.
+- Players can still look at the map and **give orders while the clock is paused**.
+- The match creator has a **pause button** (holidays, a team day out).
+- **Length:** a match lasts **5 active workdays**, about **10 island days**. That makes
+  1 island hour ≈ 10 real minutes. The speed is the same in every match: starting on a
+  Wednesday means ending on the next Wednesday (or earlier if you win).
+- **Ticks:** the server simulates in ticks of **1 island hour**. Each tick:
+  1. move,
+  2. resolve battles,
+  3. dens breed,
+  4. once per island day: Fruit and eggs.
+  Anyone who reaches a battle within the same tick joins it as reinforcement.
 - The "jump less time and pay for it" mechanic from the reference is **dropped**.
-  Turns always have the same length.
+- **Practice mode:** the same rules, run locally in the browser with no server, an accelerated
+  clock, "skip 1 day" and reset. It's a developer and balancing tool first, and later the tutorial.
 
 ---
 
@@ -76,7 +111,11 @@ Each player's group is a **flock**. Flocks come in several **kinds**. Each kind 
 terrain, a speed, a strength and one special ability. Instead of races with their own
 villages (as in the reference), we have **dodo clans** plus **native allies**.
 
-### 4.1 Dodo clans (you start with these)
+- A flock **is made of real dodos**: training takes adults out of a colony, and the dodos in
+  a flock count toward the score. Dodos lost in battle are gone. Disbanding a flock into one
+  of your own colonies returns its dodos.
+
+### 4.1 Dodo clans (each player picks one in the lobby)
 
 | Clan | Home terrain | Speciality | Unit |
 |---|---|---|---|
@@ -86,6 +125,8 @@ villages (as in the reference), we have **dodo clans** plus **native allies**.
 | **Shore Dodos** | Coast | Fast, good at blockading harbours | *Tide Runners* |
 
 - A clan gets **+25% strength on its home terrain**. In the reference it's the enemy that gets this bonus.
+- With more than 4 players, two players can pick the same clan.
+- In the MVP the clans only differ in home terrain and one stat. Abilities come later.
 
 ### 4.2 Native allies (join when you win over their settlement)
 
@@ -101,22 +142,24 @@ are extinct now too. That makes them natural allies.
 | **Fruit bat** (flying fox) | Flyer, active at night | *Night Raid:* attacks from a distance without being harmed |
 | **Rodrigues solitaire** | Rare cousin, an elite unit | *Rally:* all flocks in the area gain courage (+strength) |
 
-- **No cards and no deck.** Allies become available by **winning over their settlement**
-  (with *Courage*, see §5). Each one can be trained at its own settlement.
+- **No cards and no deck.** A player wins over a settlement by having **a flock there and
+  paying Courage** (see §5). The settlement then belongs to that player, and only they can
+  train its ally there.
+- Allies don't count toward the score.
 - **No playable hero characters** on the map.
 
 ### 4.3 Match hero (chosen before the match)
 
 - Before a match the player picks **one hero**. The hero never appears on the map. Instead
   it gives a **static modifier that lasts the whole match**.
-- **The first hero has no modifiers at all.** It's the neutral baseline.
+- **The first hero has no modifiers at all.** It's the neutral baseline, and the only hero in the MVP.
 - Later heroes come with **trade-offs**: a bonus in one area, paid for with a penalty
   somewhere else. Ideas for later (not final):
 
 | Hero (idea) | Bonus | Trade-off |
 |---|---|---|
 | *The Elder* (baseline) | none | none |
-| *The Forager* | +20% Fruit | Flocks train 1 turn slower |
+| *The Forager* | +20% Fruit | Flocks train slower |
 | *The Warden* | +25% colony defence | −1 move speed for all flocks |
 | *The Brood Mother* | Eggs hatch 50% faster | −10% flock strength |
 | *The Wanderer* | +1 move speed | −20% Fruit |
@@ -125,14 +168,16 @@ are extinct now too. That makes them natural allies.
 
 ## 5. Resources
 
+All resources belong to **one player**. There is no trading or gifting between players in the MVP.
+
 | Resource | Comes from | Used for |
 |---|---|---|
-| **Fruit** 🍈 | Colonies (per dodo per day) and fruit trees on the map | Training flocks |
-| **Spirit** 💧 | Freshwater springs | Ally abilities |
-| **Courage** 🪶 | Defeating invaders | Winning over settlements and springs |
+| **Fruit** 🍈 | Your colonies (per dodo per day) and fruit trees on the map | Training flocks |
+| **Spirit** 💧 | Freshwater springs | Ally abilities (*not in the MVP*) |
+| **Courage** 🪶 | Defeating invaders with your flocks | Winning over settlements, springs and wild colonies |
 
-- Fruit is **seasonal**. In the dry season (one "season" is every 10 days) colonies
-  produce less. That gives the game a rhythm.
+- Fruit is **seasonal**. In the dry season colonies produce less. That gives the game a rhythm.
+  *Not in the MVP.*
 - **Eggs:** each colony has an egg count that slowly turns into new dodos.
   Training a flock takes adults away from the colony, so it produces less Fruit.
   Same trade-off as the reference, but here the colony **grows back**.
@@ -153,6 +198,7 @@ are extinct now too. That makes them natural allies.
 | **Macaques** | Plundered nests | Forest, mountains | Smart: avoid fights they would lose |
 
 - Invaders get **+50% strength on their home terrain**. Lure them out onto the wrong ground.
+- MVP: Sailors, Pigs and Rats.
 
 ### 6.2 Spreading through dens (our main mechanic)
 
@@ -160,21 +206,86 @@ This replaces the reference's "bodies rise up as zombies".
 
 1. An invader that **plunders** a colony eats eggs and dodos.
 2. Each kind of invader builds a **den** nearby (a pig wallow, a rat nest, a dog lair).
-3. A den **breeds new invaders** every turn. The more it has eaten, the faster it breeds.
+3. A den **breeds new invaders** every tick. The more it has eaten, the faster it breeds.
 4. **Destroying a den:** move a flock onto it, or win a battle there.
    A den you leave alone keeps growing until it becomes a **nest of the plague**.
-5. **Ships** bring a new wave every X days, until the harbour is **blockaded**:
-   your flocks stand on the harbour, so no new invaders can land.
+5. **Ships** follow a **fixed, finite schedule** per scenario (day, harbour, species, count),
+   in the historical order of arrival. A wave that arrives at a **blockaded** harbour (your
+   flocks stand on it) is **turned away and lost for good**. The schedule ends before the
+   last day of the match.
 
 ### 6.3 Invader movement
 - Invaders go for the **nearest colony with eggs**. Pigs and rats prefer the
   colony with the **most eggs**. Dogs prefer the **nearest flock** they can beat.
   Macaques **avoid** fights they would lose. Each species has its own behaviour,
   instead of one rule for all of them.
+- Invaders don't care whose colony it is. Wild colonies are targets too.
+
+### 6.4 Scaling with the number of players
+- **Ship wave size** and **den breeding speed** scale linearly with the number of players at
+  the start (base = 4 players). The map stays the same.
+- The match creator picks a difficulty (*Easy / Normal / Hard*), which is one extra multiplier.
 
 ---
 
-## 7. Plague events (instead of zombie bosses)
+## 7. Colonies, players and the team
+
+### 7.1 Falling colonies
+- A colony **falls** when its **last adult dodo is gone**: killed, or all of them sent out in
+  flocks. The UI warns before you train away the last adults.
+- Its eggs are lost, it becomes a **ruin for good**, and the invader that plundered it
+  builds a den nearby. A ruin can't be resettled.
+- A colony always **defends itself** with its own adult dodos. Defending its own colony, a
+  dodo counts for 1.5x (see §8).
+
+### 7.2 Wild colonies
+- A starting position nobody took becomes a **wild colony**. Its dodos don't count toward the
+  score yet.
+- Any player wins it over with **a flock there and Courage**, just like an ally settlement.
+  From then on it's that player's colony and counts toward the score.
+- Invaders attack wild colonies too, so they are an emergency exit that shrinks over time.
+
+### 7.3 A player without colonies
+- Keeps playing with their flocks: defending, burning dens, helping out. No deadline.
+- Has no Fruit income, so can't train new flocks.
+- Can win over a wild colony to get back into the game, and can be handed command by teammates.
+
+### 7.4 The team without colonies (grace period)
+- When **every colony on the team** has fallen, a **grace period of 1 island day** (~2.5 real hours) starts.
+- If a player wins over a wild colony during it, the grace period ends and the match carries on.
+- If it runs out, the match is lost (*Extinct*). If no wild colonies are left, it's lost immediately.
+- Clearing every invader and den during the grace period still counts as a **win**. The score
+  is then the dodos left in the flocks.
+
+### 7.5 Absent players
+- A player can **hand over command** of their flocks to a teammate, and take it back at any time.
+- **Joining late** is possible until the end of island day 1. Starting positions still unclaimed
+  then become wild colonies.
+
+---
+
+## 8. Combat
+
+- Combat starts when flocks and invaders meet on a waypoint or at a location.
+  The battle is resolved **at the end of the tick**, so reinforcements can still join that tick.
+- **All dodo flocks on a waypoint fight as one side**, whichever players they belong to.
+- **Strength = number × individual strength** (plus terrain, hero modifier and nest defence).
+- **Outcome:** the stronger side wins. Losses follow a **saving throw** based on how the
+  two sides' strengths compare.
+  - We start from the square law (Lanchester's law, a general military rule of thumb):
+    `chance each winner dies = (loser / winner)²`.
+  - **Our own twist:** dodos that are **defending their own colony** count for 1.5x.
+    Invaders that have to **flee** (losing badly with a ratio below 1:3) are not destroyed. They retreat to their den, so they don't die
+    the way the reference's losers do. This makes chasing them and destroying the den important.
+- **Several players:** losses are spread over the flocks **in proportion to strength**. Courage
+  and the ⚔️ / 🤝 categories are split the same way.
+- **Experience:** every flock on the winning side gets **+1 strength** per individual, up to +5.
+- **Randomness is deterministic:** the game logic uses its own seeded random generator stored
+  in the game state. The same state plus the same orders always gives the same result.
+
+---
+
+## 9. Plague events (instead of zombie bosses) — *not in the MVP*
 
 When invaders capture a freshwater spring, a **Plague** starts somewhere on the island.
 This is a special invader with an effect on the whole map:
@@ -188,70 +299,101 @@ This is a special invader with an effect on the whole map:
 
 ---
 
-## 8. Combat
+## 10. Interface (basics)
 
-- Combat starts when a flock and invaders meet on a waypoint or at a location.
-  The battle is resolved **at the end of the turn**, so reinforcements can still join that turn.
-- **Strength = number × individual strength** (plus terrain, hero modifier and nest defence).
-- **Outcome:** the stronger side wins. Losses follow a **saving throw** based on how the
-  two sides' strengths compare.
-  - We start from the square law (Lanchester's law, a general military rule of thumb):
-    `chance each winner dies = (loser / winner)²`.
-  - **Our own twist:** dodos that are **defending their own colony** count for 1.5x.
-    Invaders that have to **flee** (losing badly with a ratio below 1:3) are not destroyed. They retreat to their den, so they don't die
-    the way the reference's losers do. This makes chasing them and destroying the den important.
-- **Experience:** a flock that wins gets **+1 strength** per individual, up to +5.
-
----
-
-## 9. Interface (basics)
-
-- A top bar with the day and turn, Fruit, Spirit and Courage, and an **End Turn** button.
+- **Desktop browser** first: mouse, wheel zoom and a few keyboard shortcuts. No phone support
+  yet, but nothing essential relies on hover, so touch can be added later.
+- A top bar with the island day and hour, the clock state (running / paused until …),
+  Fruit and Courage.
 - The map uses tokens with portraits. The number on a token is total strength.
-  Dodo tokens have green frames and invader tokens red ones.
+  Dodo tokens have green frames (with a player colour) and invader tokens red ones.
+- **Orders:** click a flock, pick a destination, and the route is planned automatically
+  (adjustable with extra waypoints). Orders can be changed at any moment, and a flock
+  halfway along an edge can turn around. Merging and splitting only happen on a waypoint.
 - Panels: a **colony panel** (population, eggs, Fruit, train), a **flock panel**
   (move, merge, split, ability), a **den panel** (species, breeding speed), a **battle report**.
+- **Inbox:** battle reports and warnings ("colony under attack"). It's the only notification
+  channel; no chat webhooks or push notifications.
+- **Lobby:** pick a starting position and a clan, see who has joined.
+- **Match end screen:** team grade plus the personal categories.
+- **No fog of war** in the MVP. The game state keeps a spot for visibility, so cats and
+  scouting can be added later.
 - A shared visual language (move lines, travel-time labels, battle markers) may
   follow the conventions of the genre. Artwork, names and text are ours.
+- **Art:** cute and hand-drawn in the end. Until the game is fun we use **placeholders**
+  (coloured hexes, circles with a letter or emoji, plain HTML panels).
 
 ---
 
-## 10. First playable version (MVP)
+## 11. Matches and the server
 
-1. One small map (south-east Mauritius), single player, turn-based.
-2. 2 dodo clans (Forest and Marsh), 1 ally (Giant tortoise).
-3. 3 invaders (Sailors, Pigs, Rats), 1 harbour, dens.
-4. Fruit and Courage. Spirit and abilities come later. Only the baseline hero (no modifiers).
-5. Combat with the square law, a battle report, and the win/lose screen with a score.
+- **Creating a match:** pick the map, the start time, the active hours and the difficulty.
+  Share the **invite link**. Players join the lobby. At the start time the clock starts.
+  Default start: Monday 09:00.
+- The server can run **several matches** at the same time.
+- **Login:** no accounts. You open the invite link, pick a name, and a token is stored in your
+  browser. Company SSO comes later.
+- **Rule values are frozen per match:** the `data/` numbers are copied into the match when it
+  starts. Rule and balance changes only reach new matches.
+- **Bug fixes** may be deployed during the week. The stored state has a **schema version** and
+  migrations.
+- **Rollback:** because the game is deterministic and every tick is stored, the server admin
+  can roll a match back to an earlier tick with a CLI command. The match creator only has pause.
 
 ---
 
-## 11. Decisions & open questions
+## 12. Plan
 
-### Decided
-- **Multiplayer:** **single player first.** Turn-based and running entirely in the browser.
-  Keep the game logic separate from the display so co-op can be added later.
-- **Art style:** **cute and hand-drawn.** Chunky, charming dodos and animals.
-- **Heroes:** **no playable hero characters.** One match hero is chosen beforehand and gives a static
-  modifier. The first hero has none, and later heroes have trade-offs (§4.3).
+### 12.1 First version to play with colleagues (MVP)
+1. The **whole island** of Mauritius, 6 starting positions, 2 harbours, a ship schedule.
+2. **4 clans** that only differ in home terrain and one stat. **1 ally** (Giant tortoise).
+3. **3 invaders** (Sailors, Pigs, Rats) with dens.
+4. **Fruit, eggs and Courage.** No Spirit, springs, Plagues, abilities or seasons. Only the baseline hero.
+5. Combat with the square law and fleeing, battle reports, inbox, team grade and personal categories.
+6. Multiplayer server with lobby, invite links and the office-hours clock. Practice mode.
 
-- **Technology:** **TypeScript + Vite + PixiJS (map) + HTML/CSS (UI)**, with the game
-  logic in its own layer (`core/`) apart from drawing (`render/`) and screens (`ui/`).
-  Vitest for tests, static hosting, saves in `localStorage`. Background in
-  [TECH_RESEARCH.md](TECH_RESEARCH.md).
+### 12.2 Milestones (each one playable)
+1. **Core + practice mode:** a small test map, generated waypoint grid, one flock, moving,
+   the clock running. Everything in the browser.
+2. **Battles and invaders:** dens, ships, invader behaviour, the square law, fleeing,
+   colonies falling. A full solo match in practice mode on a small map.
+3. **Economy:** Fruit, eggs, training, Courage, the tortoise, wild colonies.
+   Then put the practice mode online as a **static build** and collect feedback from colleagues.
+4. **The real Mauritius map** + 4 clans + balancing with **headless simulations**
+   (a whole week in seconds, with simple bot players).
+5. **Server:** Postgres, Docker, ticks in the background, invite links, lobby, inbox, SSE.
+6. **First test week with colleagues**, then the leaderboard and polish.
 
+Multiplayer only arrives in milestone 5, but the game logic is designed for it from day 1:
+several players, a continuous clock and determinism.
+
+### 12.3 Decided
+- **Purpose:** a hobby game to play with colleagues (all software developers) during breaks.
+  One match per week.
+- **Mode:** **co-op** with personal leaderboard categories. 2–6 players.
+- **Time:** a continuous clock that only runs during each match's active hours. 1-island-hour ticks.
+- **Art style:** **cute and hand-drawn**, placeholders first.
+- **Heroes:** **no playable hero characters.** One match hero gives a static modifier.
+  The first hero has none, and later heroes have trade-offs (§4.3).
+- **Technology:** a **TypeScript monorepo**: `core/` (pure game logic, shared), `client/`
+  (Vite + PixiJS map + HTML/CSS UI) and `server/` (HTTP API + server-sent events, running the
+  same `core/`). **Postgres** stores an order log and a state snapshot per tick. One
+  **Docker** image serves client and server; it runs locally in docker compose for testing
+  and on a server at work. Vitest for tests. Background in [TECH_RESEARCH.md](TECH_RESEARCH.md).
 - **Language:** **English only.** No translation system.
 - **History:** **inspired by history.** The real island, the real species and the real order in which
   the invaders arrived (Dutch sailors in 1598, then pigs, rats, macaques…) form the backbone of the
   campaign. The story itself is freely fictional: *what if the dodos had fought back?*
   Short real facts can be unlocked as trivia.
 
-### Still open
-- Nothing yet. New questions come up during development.
+### 12.4 Later
+- Who makes the final art.
+- Spirit, springs, Plagues and abilities. Seasons. More heroes. More invader species and fog of war.
+- Company SSO. Phone and touch support. A map editor.
 
 ---
 
-## 12. What we deliberately do differently
+## 13. What we deliberately do differently
 
 To make sure Dodo Clash is its own game rather than a copy:
 
@@ -259,15 +401,16 @@ To make sure Dodo Clash is its own game rather than a copy:
 |---|---|
 | Fantasy races, zombies | Real native and introduced species, Mauritius 1600 |
 | Hero cards, deck, Tavern, Hero Coins | **No cards.** Allies come from the map. One match hero gives a static modifier |
-| Gold / Mana / Valour | Fruit (seasonal) / Spirit / Courage |
-| Bodies rise as zombies | Invaders **breed in dens**. Ships bring waves |
+| Gold / Mana / Valour | Fruit / Spirit / Courage |
+| Bodies rise as zombies | Invaders **breed in dens**. Ships bring a fixed schedule of waves |
 | Mana Pool → zombie boss | Spring → **Plague** event |
 | All zombies use the same targeting rule | **Each species behaves differently** |
 | Loser is always wiped out | Invaders can **flee** to their den. Defending colonies get a bonus |
 | Population only shrinks | **Eggs**: colonies grow back |
-| Valour pays for shorter time jumps | Fixed turns, **End Turn** |
+| Clock runs day and night; players set alarms | Clock runs **only during office hours** |
+| Valour pays for shorter time jumps | No time jumps |
 | Zombies stronger on home terrain | **Both sides** have home terrain |
-| Score = % alive | Score = % of dodos alive, graded *Extinct → Thriving* |
+| Score = % alive | Team grade *Extinct → Thriving*, plus personal categories |
 
 All names, text, images and numbers in Dodo Clash are made by us. We don't copy any
 assets, text or card content from the reference.
