@@ -323,6 +323,33 @@ This is a special invader with an effect on the whole map:
 - **Art:** cute and hand-drawn in the end. Until the game is fun we use **placeholders**
   (coloured hexes, circles with a letter or emoji, plain HTML panels).
 
+### 10.1 Art specs
+
+Placeholders and final art follow the same sizes and file names, so they can be swapped
+without code changes.
+
+- **Hexes are flat-top.** At 100% zoom a hex is **128 px wide** (111 px tall).
+  The map zooms from **25%** (whole island on a laptop screen) to **200%**.
+- **Everything is drawn at 2×** and scaled down by PixiJS (with mipmapping). No separate 1× set.
+
+| Asset | Source size (2×) | On screen at 100% |
+|---|---|---|
+| Hex terrain tile | 256 × 222 px | 128 × 111 px |
+| Token portrait (flock, ally, invader) | 128 × 128 px | 64 × 64 px (½ hex) |
+| Location icon (colony, den, harbour…) | 128 × 128 px | 64 × 64 px |
+| Map marker (battle, flee) | 64 × 64 px | 32 × 32 px |
+| UI icon in HTML panels | SVG, 24 px grid | 24 px |
+
+- **Tokens** are round with a coloured frame: green plus a player-colour ring for dodos,
+  red for invaders. The strength number sits in a badge underneath. Several tokens on one
+  waypoint fan out slightly.
+- **Packaging:** PNG sprites in three texture atlases: `terrain` (tiles, edge overlays such as
+  footpaths, location icons), `units` (token portraits, frames, badges, markers) and `ui`.
+  Icons in the HTML panels are SVG.
+- **File names:** `assets/<atlas>/<kind>-<name>.png`, for example `terrain/terrain-marsh.png`,
+  `terrain/loc-colony.png`, `units/unit-dodo-forest.png`, `units/unit-pig.png`,
+  `units/marker-battle.png`, `ui/icon-fruit.svg`.
+
 ---
 
 ## 11. Matches and the server
